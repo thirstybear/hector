@@ -8,4 +8,5 @@ HUDSON MONITOR
   - fails: screen turns red
   - if fails: display what failed; which project
 - differentiate first failure vs repeated failure
+- cater for multiple feeds (aggregator)
 
