@@ -1,0 +1,11 @@
+HUDSON MONITOR
+- application off the shelf
+- make it play these noises
+- configurable out of the box
+- build / set of builds
+  - successful: screen turns green
+  - last person to checkin shown on screen
+  - fails: screen turns red
+  - if fails: display what failed; which project
+- differentiate first failure vs repeated failure
+
