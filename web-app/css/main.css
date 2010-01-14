@@ -3,6 +3,10 @@ html * {
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
 }
 
+.unconfigured {
+    background-color: #ffff66
+}
+
 /* GENERAL */
 
 .spinner {
