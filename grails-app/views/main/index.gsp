@@ -3,8 +3,6 @@
 		<meta name="layout" content="main" />
     </head>
     <body>
-      <div id="body" class="${state.name()}">
-
-      </div>
+      MonitorApp front page
     </body>
 </html>

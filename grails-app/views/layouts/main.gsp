@@ -6,7 +6,7 @@
         <g:layoutHead />
         <g:javascript library="application" />
     </head>
-    <body>
+    <body class="${state.name()}">
         <g:layoutBody />
     </body>
 </html>
