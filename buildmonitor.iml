@@ -22,6 +22,9 @@
         </building>
       </configuration>
     </facet>
+    <facet type="Groovy" name="Groovy">
+      <configuration />
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
