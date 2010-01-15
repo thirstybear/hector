@@ -19,4 +19,13 @@ class ConfigurationTests extends GroovyTestCase {
         assertEquals unconfigured, configuration.state
     }
 
+    void testResetClearsUrlAndSetsStateBackToUnconfigured() {
+        Configuration configuration = new Configuration(url:'file:///some/file')
+
+        configuration.reset()
+
+        assertNull configuration.url
+        assertEquals unconfigured, configuration.state
+    }
+
 }

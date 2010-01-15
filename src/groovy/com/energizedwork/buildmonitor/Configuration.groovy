@@ -12,4 +12,9 @@ class Configuration {
         this.state = url ? configured : unconfigured
     }
 
+    void reset() {
+        this.url = null
+        this.state = unconfigured
+    }
+
 }

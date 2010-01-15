@@ -4,13 +4,14 @@ import static com.energizedwork.buildmonitor.ConfigurationState.*
 
 class MainController {
 
-    Configuration configuration
+    BuildMonitorService buildMonitorService
+    Configuration configuration    
 
     def index = {
         if(configuration.state == unconfigured) {
             redirect(controller: 'configure')
         } else {
-            render(view:'index', model:['state':configuration.state])
+            render(view:'index', model:['state':buildMonitorService.state])
         }
     }
 }

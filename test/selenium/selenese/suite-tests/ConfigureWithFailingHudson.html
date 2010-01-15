@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="" />
-<title>Red On Fail Test</title>
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>ConfigureWithFailingHudson</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Red On Fail Test</td></tr>
+<tr><td rowspan="1" colspan="3">ConfigureWithFailingHudson</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -18,13 +18,28 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>/configure</td>
+	<td>/</td>
 	<td></td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>*/configure</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Build Monitor | Configuration</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>url-label</td>
+	<td>Hudson URL:</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>url</td>
-	<td>/fixture/hudsonRss?result=failure</td>
+	<td>/fixture/hudsonRss?state=failure</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -34,6 +49,11 @@
 <tr>
 	<td>waitForLocation</td>
 	<td>*/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Build Monitor</td>
 	<td></td>
 </tr>
 <tr>
