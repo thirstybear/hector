@@ -21,7 +21,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'configure', controller.redirectArgs.controller
     }
 
-    void testIndexPutsBuildMonitorStateOnModel() {
+    void testIndexPutsBuildMonitorFailStateOnModel() {
         controller.configuration = mock(Configuration) {
             state.returns(configured).atLeastOnce()
         }
@@ -37,5 +37,23 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'unexpected view', 'index', controller.modelAndView.view
         assertEquals 'unexpected model', [state:failed], controller.modelAndView.model                
     }
+
+    void testIndexPutsBuildMonitorPassStateOnModel() {
+        controller.configuration = mock(Configuration) {
+            state.returns(configured).atLeastOnce()
+        }
+
+        controller.buildMonitorService = mock(BuildMonitorService) {
+            state.returns(passed)
+        }
+
+        play {
+            controller.index()
+        }
+
+        assertEquals 'unexpected view', 'index', controller.modelAndView.view
+        assertEquals 'unexpected model', [state:passed], controller.modelAndView.model
+    }
+
 
 }
