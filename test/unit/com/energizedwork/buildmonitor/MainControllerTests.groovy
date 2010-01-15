@@ -10,7 +10,7 @@ class MainControllerTests extends ControllerUnitTestCase {
 
     void testIndexRenderIndexViewAndPutsConfigurationStateOnModel() {
         controller.configuration = mock(Configuration) {
-            state.returns(configured)
+            state.returns(configured).atLeastOnce()
         }
 
         play {
@@ -19,6 +19,18 @@ class MainControllerTests extends ControllerUnitTestCase {
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.view
         assertEquals 'unexpected model', [state:configured], controller.modelAndView.model
+    }
+
+    void testIndexRedirectsToConfigureIfSystemIsNotConfigured() {
+        controller.configuration = mock(Configuration) {
+            state.returns(unconfigured)
+        }
+
+        play {
+            controller.index()
+        }
+
+        assertEquals '/configure', controller.redirectArgs.url
     }
 
 }
