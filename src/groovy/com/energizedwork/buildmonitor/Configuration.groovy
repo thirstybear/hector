@@ -5,9 +5,9 @@ import static com.energizedwork.buildmonitor.ConfigurationState.*
 class Configuration {
 
     ConfigurationState state = unconfigured
-    URL url
+    String url
 
-    void setUrl(URL url) {
+    void setUrl(String url) {
         this.url = url
         this.state = url ? configured : unconfigured
     }

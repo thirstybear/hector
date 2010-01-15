@@ -8,14 +8,9 @@ class MainController {
 
     def index = {
         if(configuration.state == unconfigured) {
-            redirect(url:'/configure')
+            redirect(controller: 'configure')
         } else {
             render(view:'index', model:['state':configuration.state])
         }
     }
-
-    def configure = {
-        
-    }
-
 }

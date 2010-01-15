@@ -7,6 +7,10 @@
         <g:javascript library="application" />
     </head>
     <body class="${state?.name()}">
-        <g:layoutBody />
+        <div id="body">
+            <div id="content">
+                <g:layoutBody />
+            </div>
+        </div>
     </body>
 </html>

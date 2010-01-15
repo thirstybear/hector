@@ -12,7 +12,7 @@ class ConfigurationTests extends GroovyTestCase {
     void testConfigurationReturnsUnconfiguredIfNoRssUrlSpecified() {
         Configuration configuration = new Configuration()
 
-        configuration.url = new URL('file:///some/file')
+        configuration.url = 'file:///some/file'
         assertNotSame 'State should be configured when URL defined', unconfigured, configuration.state
 
         configuration.url = null

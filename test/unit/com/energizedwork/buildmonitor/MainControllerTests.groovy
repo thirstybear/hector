@@ -30,7 +30,7 @@ class MainControllerTests extends ControllerUnitTestCase {
             controller.index()
         }
 
-        assertEquals '/configure', controller.redirectArgs.url
+        assertEquals 'configure', controller.redirectArgs.controller
     }
 
 }
