@@ -26,7 +26,7 @@ class MainControllerTests extends ControllerUnitTestCase {
             state.returns(configured).atLeastOnce()
         }
 
-        controller.buildMonitorService = mock(BuildMonitorService) {
+        controller.buildMonitor = mock(BuildMonitor) {
             state.returns(failed)
         }
 
@@ -43,7 +43,7 @@ class MainControllerTests extends ControllerUnitTestCase {
             state.returns(configured).atLeastOnce()
         }
 
-        controller.buildMonitorService = mock(BuildMonitorService) {
+        controller.buildMonitor = mock(BuildMonitor) {
             state.returns(passed)
         }
 

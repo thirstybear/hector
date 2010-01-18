@@ -1,6 +1,9 @@
 import com.energizedwork.buildmonitor.Configuration
+import com.energizedwork.buildmonitor.BuildMonitor
 
 beans = {
+
+    buildMonitor(BuildMonitor)
 
     configuration(Configuration)
 
