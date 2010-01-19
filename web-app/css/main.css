@@ -4,9 +4,9 @@ html * {
 }
 
 body.failed {
-    background-color: red;
+    background-color: #a22b20;
 }
 
 body.passed {
-    background-color: green;
+    background-color: #87af49;
 }

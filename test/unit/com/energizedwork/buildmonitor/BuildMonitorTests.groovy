@@ -50,10 +50,11 @@ class BuildMonitorTests extends GroovyTestCase {
         assertEquals ([], buildMonitor.failedProjects)
     }
 
-    void testGetFailedProjectsReturnsListOfFailedProjectsWhenFailed() {
-        Project failingProject = failedProject
-        buildMonitor.projects = [passedProject, failingProject, passedProject]
-        assertEquals ([failingProject], buildMonitor.failedProjects)
+    void testGetFailedProjectsReturnsListOfFailedProjectsWhenFailedInAlphabeticalOrder() {
+        Project failingProjectA = getFailedProject('A')
+        Project failingProjectZ = getFailedProject('Z')
+        buildMonitor.projects = [passedProject, failingProjectZ, passedProject, failingProjectA]
+        assertEquals ([failingProjectA, failingProjectZ], buildMonitor.failedProjects)
     }
 
     void setUpHudsonServer(List<Project> result) {
@@ -62,8 +63,8 @@ class BuildMonitorTests extends GroovyTestCase {
         }
     }
 
-    Project getFailedProject() {
-        return new Project(state:failed)
+    Project getFailedProject(String name = 'failedProject') {
+        return new Project(state:failed, name:name)
     }
 
     Project getPassedProject() {

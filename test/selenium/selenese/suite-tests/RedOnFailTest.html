@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>url</td>
-	<td>http://localhost:8080/fixture/hudsonRss?result=failure&amp;projectName=FailingProject</td>
+	<td>http://localhost:8080/fixture/hudsonRss?fail=TotalFailure,AOL&amp;pass=MyOwn,HudsonMonitor</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -43,8 +43,13 @@
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>css=li.failure</td>
-	<td>FailingProject</td>
+	<td>css=li.failure:first-child</td>
+	<td>AOL</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=li.failure:last-child</td>
+	<td>TotalFailure</td>
 </tr>
 
 </tbody></table>

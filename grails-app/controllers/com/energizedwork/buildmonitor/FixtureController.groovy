@@ -28,23 +28,29 @@ class FixtureController {
 </feed>'''
 
 
-    def hudsonRss = {
-        String projectState
+    def hudsonRss = {        
+        StringBuilder buffer = new StringBuilder()
 
-        if (params.result == 'success') {
-            projectState = SUCCESS
-        } else {
-            projectState = FAILURE
-        }
+        buffer << g.render(template: 'hudsonRssHeader')
+        renderHudsonRssEntries params.pass, SUCCESS, buffer
+        renderHudsonRssEntries params.fail, FAILURE, buffer
+        buffer << g.render(template: 'hudsonRssFooter')
 
-        String projectName = params.projectName ?: 'myProject' 
-
-        render(view: 'hudsonRss', model: [projectName: projectName, projectState: projectState], contentType:'application/atom+xml;charset=UTF-8')
+        render(text: buffer.toString(), contentType:'application/atom+xml;charset=UTF-8')
     }
 
     def reset = {
         configuration.reset()
         render text:'Configuration RESET'
+    }
+
+    private Closure renderHudsonRssEntries = { String commaSeparatedNames, String state, StringBuilder buffer ->
+        commaSeparatedNames = commaSeparatedNames ?: ''
+        List<String> projectNames = commaSeparatedNames.tokenize(',')
+
+        projectNames.each { String projectName ->
+            buffer << g.render(template: 'hudsonRssEntry', model: [projectName: projectName, projectState: state])
+        }                        
     }
 
 }

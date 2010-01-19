@@ -22,7 +22,7 @@ class BuildMonitor {
     List<Project> getFailedProjects() {
         projects.findAll {
             it.state == failed            
-        }
+        }.sort { it.name }
     }
 
 }

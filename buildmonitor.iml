@@ -8,6 +8,7 @@
       <configuration>
         <webroots>
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/web-app" relative="/" />
         </webroots>
         <sourceRoots />
         <building>
@@ -27,6 +28,9 @@
     <exclude-output />
     <content url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins">
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/jetty-1.2-SNAPSHOT/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/src/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$">
@@ -48,9 +52,11 @@
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/lib" />
+          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/lib" recursive="false" />
         <jarDirectory url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
