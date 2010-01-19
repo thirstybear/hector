@@ -6,11 +6,15 @@ import org.gmock.WithGMock
 @WithGMock
 class ConfigureControllerTests extends ControllerUnitTestCase {
 
-    void testSaveStoresHudsonURLInConfiguration() {
+    void testSaveStoresHudsonURLInConfigurationAndUpdatesMonitor() {
         String expectedUrl = "urandomstring"
 
         controller.configuration = mock(Configuration) {
             url.set(expectedUrl)
+        }
+
+        controller.buildMonitor = mock(BuildMonitor) {
+            update()
         }
 
         play {

@@ -1,6 +1,7 @@
 package com.energizedwork.buildmonitor.hudson
 
 import static com.energizedwork.buildmonitor.BuildState.*
+import static com.energizedwork.buildmonitor.hudson.HudsonServer.*
 
 import org.gmock.WithGMock
 import com.energizedwork.buildmonitor.Project
@@ -19,7 +20,7 @@ class HudsonServerTests extends GroovyTestCase {
 
     void testGetProjectsCanParseSingleSuccessfulProject() {
         String projectName = 'project1'
-        String projectState = "SUCCESS"
+        String projectState = SUCCESS
 
         setUpHudsonFeed projectName, projectState
 
@@ -33,7 +34,7 @@ class HudsonServerTests extends GroovyTestCase {
 
     void testGetProjectsCanParseSingleFailingProject() {
         String projectName = 'project2'
-        String projectState = "FAILURE"
+        String projectState = FAILURE
 
         setUpHudsonFeed projectName, projectState
 
@@ -47,7 +48,7 @@ class HudsonServerTests extends GroovyTestCase {
 
     void testGetProjectsCanParseSingleAbortedProject() {
         String projectName = 'project2'
-        String projectState = "ABORTED"
+        String projectState = ABORTED
 
         setUpHudsonFeed projectName, projectState
 
@@ -61,7 +62,7 @@ class HudsonServerTests extends GroovyTestCase {
 
     void testGetProjectsCanParseSingleBuildingProject() {
         String projectName = 'project2'
-        String projectState = "null"
+        String projectState = BUILDING
 
         setUpHudsonFeed projectName, projectState
 
@@ -79,7 +80,7 @@ class HudsonServerTests extends GroovyTestCase {
         List<SyndEntry> feedEntries = []
         projectNames.each {String projectName ->
             feedEntries << mock(SyndEntry) {
-                title.returns "$projectName #123 (SUCCESS)"
+                title.returns "$projectName #123 (${SUCCESS})"
             }
         }
 

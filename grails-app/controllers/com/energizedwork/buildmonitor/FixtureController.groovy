@@ -1,5 +1,6 @@
 package com.energizedwork.buildmonitor
 
+import static com.energizedwork.buildmonitor.hudson.HudsonServer.*
 
 class FixtureController {
 
@@ -17,7 +18,7 @@ class FixtureController {
     </author>
     <id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id>
     <entry>
-        <title>ProjectName #1 (FAILURE)</title>
+        <title>ProjectName #1 (SUCCESS)</title>
         <link type="text/html" rel="alternate"
               href="http://some.build.server/hudson/job/ProjectName/1/"></link>
         <id>tag:hudson.dev.java.net,2008:http://some.build.server/hudson/job/ProjectName/</id>
@@ -28,7 +29,14 @@ class FixtureController {
 
 
     def hudsonRss = {
-        render(text:rssFailureTemplate, contentType:'application/atom+xml;charset=UTF-8')
+        String projectState
+
+        if (params.result == 'success') {
+            projectState = SUCCESS
+        } else {
+            projectState = FAILURE
+        }
+        render(view: 'hudsonRss', model: [projectName: 'myProject', projectState: projectState], contentType:'application/atom+xml;charset=UTF-8')
     }
 
     def reset = {

@@ -10,17 +10,14 @@ import org.apache.http.impl.client.DefaultHttpClient
 import com.energizedwork.buildmonitor.Configuration
 
 class FeedRetriever {
-    Configuration configuration
 
-    SyndFeed get() {
-        update()
-    }
+    Configuration configuration
     
     SyndFeed update() {
         SyndFeed result
-        URL url = configuration.url
-        
-        if (url) {
+
+        if (configuration.url) {
+            URL url = new URL(configuration.url)
             HttpClient httpclient = new DefaultHttpClient()
             HttpGet get = new HttpGet(url.toURI())
             HttpResponse response = httpclient.execute(get)

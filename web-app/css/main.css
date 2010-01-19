@@ -6,3 +6,7 @@ html * {
 body.failed {
     background-color: red;
 }
+
+body.passed {
+    background-color: green;
+}

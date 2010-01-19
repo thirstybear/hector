@@ -10,6 +10,12 @@ import com.energizedwork.feed.FeedRetriever
 
 
 class HudsonServer {
+
+    static final String SUCCESS = 'SUCCESS'
+    static final String FAILURE = 'FAILURE'
+    static final String BUILDING = 'null'
+    static final String ABORTED = 'ABORTED'
+
     FeedRetriever feedRetriever
 
     List<Project> getProjects() {
@@ -37,10 +43,10 @@ class HudsonServer {
 
     BuildState mapHudsonStateStringToBuildState(String buildStateString) {
         switch(buildStateString) {
-            case "SUCCESS": passed; break
-            case "FAILURE": failed; break
-            case "null": building; break
-            case "ABORTED": aborted; break
+            case SUCCESS: passed; break
+            case FAILURE: failed; break
+            case BUILDING: building; break
+            case ABORTED: aborted; break
             default: failed
         }
     }

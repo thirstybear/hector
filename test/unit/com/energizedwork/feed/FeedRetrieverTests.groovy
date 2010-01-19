@@ -24,13 +24,14 @@ class FeedRetrieverTests extends GroovyTestCase {
         setUpConfigurationUrl null
 
         play {
-            assertNull feedRetriever.get()
+            assertNull feedRetriever.update()
         }
     }
 
     void testRetrievesBlogFeed() {
-        URL url = new URL('http://path/to/some/atom/feed.xml')
-        setUpConfigurationUrl url
+        String urlString = 'http://path/to/some/atom/feed.xml'
+        setUpConfigurationUrl urlString
+        URL url = new URL(urlString)
 
         SyndFeed expected = mock(SyndFeed)
 
@@ -61,7 +62,7 @@ class FeedRetrieverTests extends GroovyTestCase {
         }
 
         play {
-            SyndFeed actual = feedRetriever.get()
+            SyndFeed actual = feedRetriever.update()
             assertSame expected, actual
         }
     }
@@ -79,9 +80,9 @@ class FeedRetrieverTests extends GroovyTestCase {
         }
     }
 
-    void setUpConfigurationUrl(URL value) {
+    void setUpConfigurationUrl(String value) {
         feedRetriever.configuration = mock(Configuration) {
-            url.returns value
+            url.returns(value).atLeastOnce()
         }
     }
 

@@ -10,6 +10,9 @@ class BuildMonitor {
 
     void update() {
         List<Project> projects = hudsonServer.projects
+
+        println projects
+
         if(projects.find { it.state == failed }) {
             state = failed
         } else {

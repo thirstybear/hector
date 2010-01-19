@@ -2,13 +2,14 @@ package com.energizedwork.buildmonitor
 
 class ConfigureController {
 
+    BuildMonitor buildMonitor
     Configuration configuration
 
     def index = { }
 
     def save = {
         configuration.url = params.url
-
+        buildMonitor.update()
         redirect(controller: 'main')
     }
 
