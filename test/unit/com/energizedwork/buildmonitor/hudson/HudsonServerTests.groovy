@@ -6,7 +6,7 @@ import org.gmock.WithGMock
 import com.energizedwork.buildmonitor.Project
 import com.sun.syndication.feed.synd.SyndFeed
 import com.sun.syndication.feed.synd.SyndEntry
-import com.energizedwork.buildmonitor.BuildState
+import com.energizedwork.feed.FeedRetriever
 
 @WithGMock
 class HudsonServerTests extends GroovyTestCase {
@@ -87,7 +87,7 @@ class HudsonServerTests extends GroovyTestCase {
             entries.returns feedEntries
         }
 
-        hudsonServer.feedRetriever = mock() {
+        hudsonServer.feedRetriever = mock(FeedRetriever) {
             update().returns mockSyndFeed
         }
 
@@ -111,7 +111,7 @@ class HudsonServerTests extends GroovyTestCase {
             entries.returns feedEntries
         }
 
-        hudsonServer.feedRetriever = mock() {
+        hudsonServer.feedRetriever = mock(FeedRetriever) {
             update().returns mockSyndFeed
         }
     }

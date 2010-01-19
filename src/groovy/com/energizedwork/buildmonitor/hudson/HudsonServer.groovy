@@ -6,10 +6,11 @@ import com.energizedwork.buildmonitor.Project
 import com.sun.syndication.feed.synd.SyndFeed
 import com.sun.syndication.feed.synd.SyndEntry
 import com.energizedwork.buildmonitor.BuildState
+import com.energizedwork.feed.FeedRetriever
 
 
 class HudsonServer {
-    def feedRetriever
+    FeedRetriever feedRetriever
 
     List<Project> getProjects() {
         SyndFeed feed = feedRetriever.update()

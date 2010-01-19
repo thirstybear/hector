@@ -54,6 +54,10 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="RSS Reading" level="project" />
+    <orderEntry type="library" name="Apache HTTP Client" level="project" />
+    <orderEntry type="library" name="Rome" level="project" />
+    <orderEntry type="library" name="GMock" level="project" />
   </component>
 </module>
 
