@@ -36,7 +36,10 @@ class FixtureController {
         } else {
             projectState = FAILURE
         }
-        render(view: 'hudsonRss', model: [projectName: 'myProject', projectState: projectState], contentType:'application/atom+xml;charset=UTF-8')
+
+        String projectName = params.projectName ?: 'myProject' 
+
+        render(view: 'hudsonRss', model: [projectName: projectName, projectState: projectState], contentType:'application/atom+xml;charset=UTF-8')
     }
 
     def reset = {

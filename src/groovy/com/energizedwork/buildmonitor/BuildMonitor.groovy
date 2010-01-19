@@ -7,16 +7,21 @@ class BuildMonitor {
 
     BuildState state = failed
     HudsonServer hudsonServer
+    List<Project> projects
 
     void update() {
-        List<Project> projects = hudsonServer.projects
-
-        println projects
+        projects = hudsonServer.projects
 
         if(projects.find { it.state == failed }) {
             state = failed
         } else {
             state = passed
+        }
+    }
+
+    List<Project> getFailedProjects() {
+        projects.findAll {
+            it.state == failed            
         }
     }
 

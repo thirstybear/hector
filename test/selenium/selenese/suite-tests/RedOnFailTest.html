@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>url</td>
-	<td>http://localhost:8080/fixture/hudsonRss?result=failure</td>
+	<td>http://localhost:8080/fixture/hudsonRss?result=failure&amp;projectName=FailingProject</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -40,6 +40,11 @@
 	<td>waitForAttribute</td>
 	<td>document.body@class</td>
 	<td>failed</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=li.failure</td>
+	<td>FailingProject</td>
 </tr>
 
 </tbody></table>

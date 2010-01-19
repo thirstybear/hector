@@ -21,13 +21,16 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'configure', controller.redirectArgs.controller
     }
 
-    void testIndexPutsBuildMonitorFailStateOnModel() {
+    void testIndexPutsBuildMonitorFailStateOnModelWithFailedProjects() {
         controller.configuration = mock(Configuration) {
             state.returns(configured).atLeastOnce()
         }
 
+        List<Project> projects = [new Project(name:'failed', state:failed)]
+
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(failed)
+            failedProjects.returns projects
         }
 
         play {
@@ -35,7 +38,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.view
-        assertEquals 'unexpected model', [state:failed], controller.modelAndView.model                
+        assertEquals 'unexpected model', [state:failed, failedProjects:projects], controller.modelAndView.model                
     }
 
     void testIndexPutsBuildMonitorPassStateOnModel() {

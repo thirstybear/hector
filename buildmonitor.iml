@@ -26,6 +26,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/jetty-1.2-SNAPSHOT/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$">

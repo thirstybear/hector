@@ -1,5 +1,6 @@
 package com.energizedwork.buildmonitor
 
+import static com.energizedwork.buildmonitor.BuildState.*
 import static com.energizedwork.buildmonitor.ConfigurationState.*
 
 class MainController {
@@ -11,7 +12,12 @@ class MainController {
         if(configuration.state == unconfigured) {
             redirect(controller: 'configure')
         } else {
-            render(view:'index', model:['state':buildMonitor.state])
+            BuildState state = buildMonitor.state
+            Map model = ['state':state]
+            if(state == failed) {
+                model.failedProjects = buildMonitor.failedProjects
+            }
+            render(view:'index', model:model)
         }
     }
     
