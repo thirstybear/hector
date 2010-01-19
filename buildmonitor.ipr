@@ -284,6 +284,13 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="JDom">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/jdom.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
   <UsedPathMacros>
     <macro name="USER_HOME" description="" />

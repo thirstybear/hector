@@ -9,17 +9,28 @@ import org.apache.http.HttpResponse
 import org.apache.http.StatusLine
 import org.apache.http.HttpEntity
 import com.sun.syndication.io.SyndFeedInput
+import com.energizedwork.buildmonitor.Configuration
 
 @WithGMock
 class FeedRetrieverTests extends GroovyTestCase {
 
+    FeedRetriever feedRetriever
+
+    void setUp() {
+        feedRetriever = new FeedRetriever()
+    }
+
     void testExecuteReturnsNullGivenNullURL() {
-        assertNull new FeedRetriever(null).get()
+        setUpConfigurationUrl null
+
+        play {
+            assertNull feedRetriever.get()
+        }
     }
 
     void testRetrievesBlogFeed() {
         URL url = new URL('http://path/to/some/atom/feed.xml')
-        FeedRetriever blogRetriever = new FeedRetriever(url)
+        setUpConfigurationUrl url
 
         SyndFeed expected = mock(SyndFeed)
 
@@ -32,7 +43,7 @@ class FeedRetrieverTests extends GroovyTestCase {
         }
 
         InputStream mockInputStream = mock(InputStream) {
-            withReader(match { it.equals(blogRetriever.convertReaderToFeed) }).returns(expected)
+            withReader(match { it.equals(feedRetriever.convertReaderToFeed) }).returns(expected)
         }
 
         HttpEntity mockEntity = mock(HttpEntity) {
@@ -50,15 +61,12 @@ class FeedRetrieverTests extends GroovyTestCase {
         }
 
         play {
-            SyndFeed actual = blogRetriever.get()
+            SyndFeed actual = feedRetriever.get()
             assertSame expected, actual
         }
     }
 
     void testConvertReaderToFeed() {
-        URL url = new URL('http://path/to/some/atom/feed.xml')
-        FeedRetriever blogRetriever = new FeedRetriever(url)
-
         Reader mockReader = mock(Reader)
         SyndFeed expected = mock(SyndFeed)
         SyndFeedInput mockSyndFeedInput = mock(SyndFeedInput, constructor()) {
@@ -66,8 +74,14 @@ class FeedRetrieverTests extends GroovyTestCase {
         }
 
         play {
-            SyndFeed actual = blogRetriever.convertReaderToFeed(mockReader)
+            SyndFeed actual = feedRetriever.convertReaderToFeed(mockReader)
             assertSame expected, actual
+        }
+    }
+
+    void setUpConfigurationUrl(URL value) {
+        feedRetriever.configuration = mock(Configuration) {
+            url.returns value
         }
     }
 
