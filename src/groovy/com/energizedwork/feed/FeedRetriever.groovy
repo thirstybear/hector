@@ -2,7 +2,6 @@ package com.energizedwork.feed
 
 import com.sun.syndication.feed.synd.SyndFeed
 import com.sun.syndication.io.SyndFeedInput
-import java.util.Formatter.DateTime
 import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
@@ -16,12 +15,11 @@ class FeedRetriever {
         this.url = url
     }
 
-    SyndFeed update() {
-        // TODO rename either this or the get method!
-        get()
-    }
-
     SyndFeed get() {
+        update()
+    }
+    
+    SyndFeed update() {
         SyndFeed result
         if (url) {
             HttpClient httpclient = new DefaultHttpClient()

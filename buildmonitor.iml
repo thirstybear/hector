@@ -58,6 +58,7 @@
     <orderEntry type="library" name="Apache HTTP Client" level="project" />
     <orderEntry type="library" name="Rome" level="project" />
     <orderEntry type="library" name="GMock" level="project" />
+    <orderEntry type="library" name="JDom" level="project" />
   </component>
 </module>
 
