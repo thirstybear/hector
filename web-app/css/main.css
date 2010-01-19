@@ -4,7 +4,7 @@ html * {
 }
 
 body.failed {
-    background-color: #a22b20;
+    background-color: #d33024;
 }
 
 body.passed {

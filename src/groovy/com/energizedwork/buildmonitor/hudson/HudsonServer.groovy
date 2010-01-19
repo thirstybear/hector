@@ -21,7 +21,7 @@ class HudsonServer {
     List<Project> getProjects() {
         SyndFeed feed = feedRetriever.update()
 
-        return feed.entries.collect { SyndEntry entry ->
+        return feed?.entries.collect { SyndEntry entry ->
             buildProject(entry)
         }
     }

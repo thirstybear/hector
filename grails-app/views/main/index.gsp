@@ -1,6 +1,7 @@
 <html>
     <head>
 		<meta name="layout" content="main" />
+        <meta http-equiv="refresh" content="2" />
     </head>
     <body>
         <g:if test="${failedProjects}">
