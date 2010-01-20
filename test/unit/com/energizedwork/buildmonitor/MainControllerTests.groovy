@@ -9,6 +9,7 @@ import static com.energizedwork.buildmonitor.BuildState.failed
 import static com.energizedwork.buildmonitor.BuildState.passed
 import static com.energizedwork.buildmonitor.ConfigurationState.configured
 import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
+import java.text.SimpleDateFormat
 
 @WithGMock
 class MainControllerTests extends ControllerUnitTestCase {
@@ -56,6 +57,21 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'unexpected model', [state: passed], controller.modelAndView.model
     }
 
+    void testIndexShouldPopulateLastModifiedHttpHeaderWithPreviousTimeIfNoUpdateSince() {
+        setConfigured()
+
+        controller.buildMonitor = mock(BuildMonitor) {
+            state.returns(passed)
+        }
+
+        play {
+            controller.index()
+        }
+
+        // fixme THIS IS A FRAGILE TEST! Fix it!
+        assertEquals new SimpleDateFormat('E, dd MMM yyyy HH:mm:ss z').format(new Date()), controller.response.getHeader('Last-Modified')
+        // TODO ensure date is RFC2822 formatted
+    }
 
     private void setConfigured() {
         setConfigState(configured)
