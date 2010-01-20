@@ -1,18 +1,20 @@
 package com.energizedwork.buildmonitor
 
-import static com.energizedwork.buildmonitor.BuildState.*
-import static com.energizedwork.buildmonitor.ConfigurationState.*
-
+import com.energizedwork.buildmonitor.BuildMonitor
+import com.energizedwork.buildmonitor.Configuration
+import com.energizedwork.buildmonitor.Project
 import grails.test.ControllerUnitTestCase
 import org.gmock.WithGMock
+import static com.energizedwork.buildmonitor.BuildState.failed
+import static com.energizedwork.buildmonitor.BuildState.passed
+import static com.energizedwork.buildmonitor.ConfigurationState.configured
+import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
 
 @WithGMock
 class MainControllerTests extends ControllerUnitTestCase {
 
     void testIndexRedirectsToConfigureIfSystemIsNotConfigured() {
-        controller.configuration = mock(Configuration) {
-            state.returns(unconfigured)
-        }
+        setUnconfigured()
 
         play {
             controller.index()
@@ -22,11 +24,9 @@ class MainControllerTests extends ControllerUnitTestCase {
     }
 
     void testIndexPutsBuildMonitorFailStateOnModelWithFailedProjects() {
-        controller.configuration = mock(Configuration) {
-            state.returns(configured).atLeastOnce()
-        }
+        setConfigured()
 
-        List<Project> projects = [new Project(name:'failed', state:failed)]
+        List<Project> projects = [new Project(name: 'failed', state: failed)]
 
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(failed)
@@ -38,13 +38,11 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.view
-        assertEquals 'unexpected model', [state:failed, failedProjects:projects], controller.modelAndView.model                
+        assertEquals 'unexpected model', [state: failed, failedProjects: projects], controller.modelAndView.model
     }
 
     void testIndexPutsBuildMonitorPassStateOnModel() {
-        controller.configuration = mock(Configuration) {
-            state.returns(configured).atLeastOnce()
-        }
+        setConfigured()
 
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(passed)
@@ -55,8 +53,22 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.view
-        assertEquals 'unexpected model', [state:passed], controller.modelAndView.model
+        assertEquals 'unexpected model', [state: passed], controller.modelAndView.model
     }
 
+
+    private void setConfigured() {
+        setConfigState(configured)
+    }
+
+    private def setUnconfigured() {
+        setConfigState(unconfigured)
+    }
+
+    private def setConfigState(ConfigurationState configState) {
+        controller.configuration = mock(Configuration) {
+            state.returns(configState)
+        }
+    }
 
 }

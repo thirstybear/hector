@@ -26,13 +26,6 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins">
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/jetty-1.2-SNAPSHOT/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/src/groovy" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/grails-app/conf/hibernate" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/controllers" isTestSource="false" />
@@ -47,6 +40,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="grails-1.2.0" level="project" />
     <orderEntry type="library" name="grails-1.2.0" level="application" />
     <orderEntry type="module-library">
       <library name="Grails User Library">
