@@ -12,15 +12,20 @@ class BuildMonitor {
     Date lastUpdate = new Date(0L)
 
     void update() {
-        projects = hudsonServer.projects
 
-        if(projects.find { it.state == failed }) {
-            state = failed
-        } else {
-            state = passed
+        List<Project> newProjects = hudsonServer.projects
+
+        if (projects != newProjects) {
+            projects = newProjects
+
+            if(projects.find { it.state == failed }) {
+                state = failed
+            } else {
+                state = passed
+            }
+
+            lastUpdate = new Date()
         }
-
-        lastUpdate = new Date()
     }
 
     List<Project> getFailedProjects() {

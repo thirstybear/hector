@@ -57,9 +57,50 @@ class BuildMonitorTests extends GroovyTestCase {
         assertEquals ([failingProjectA, failingProjectZ], buildMonitor.failedProjects)
     }
 
+  void testUpdateShouldNotUpdateLastUpdateTimeIfNoProjectChange() {
+      setUpHudsonServer([passedProject, passedProject, passedProject])
+
+      play {
+        buildMonitor.update()
+        Date update1 = buildMonitor.lastUpdate
+        waitForAtLeast(1)
+        buildMonitor.update()
+        Date update2 = buildMonitor.lastUpdate
+
+        int t1 = update1.getTime()
+        int t2 = update2.getTime()
+        assertEquals "update times different by ${t2-t1} ms", update1, update2
+      }
+  }
+
+  void testUpdateShouldUpdateLastUpdateTimeIfProjectChanges() {
+
+      Project project1 = passedProject(name:'project1', state:passed)
+      Project project2 = passedProject(name:'project2', state:passed)
+      Project project3 = passedProject(name:'project3', state:passed)
+
+      setUpHudsonServer([project1, project2, project3])
+
+      play {
+        buildMonitor.update()
+        Date update1 = buildMonitor.lastUpdate
+
+        project2.state = failed
+        waitForAtLeast(1)
+        println 'Hudson:' + buildMonitor.hudsonServer.projects
+
+        buildMonitor.update()
+        Date update2 = buildMonitor.lastUpdate
+
+        int t1 = update1.getTime()
+        int t2 = update2.getTime()
+        assertTrue "update times should be different", t2 > t1
+      }
+  }
+
     void setUpHudsonServer(List<Project> result) {
         buildMonitor.hudsonServer = mock(HudsonServer) {
-            projects.returns(result)
+            projects.returns(result).atLeastOnce()
         }
     }
 
@@ -71,4 +112,11 @@ class BuildMonitorTests extends GroovyTestCase {
         return new Project(state:passed)
     }
 
+    private void waitForAtLeast(int delayInMillis) {
+      int target = System.currentTimeMillis() + delayInMillis
+
+      while (target > System.currentTimeMillis()) {
+        // loop
+      }
+    }
 }
