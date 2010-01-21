@@ -9,6 +9,8 @@ class BuildMonitor {
     HudsonServer hudsonServer
     List<Project> projects
 
+    Date lastUpdate = new Date(0L)
+
     void update() {
         projects = hudsonServer.projects
 
@@ -17,6 +19,8 @@ class BuildMonitor {
         } else {
             state = passed
         }
+
+        lastUpdate = new Date()
     }
 
     List<Project> getFailedProjects() {

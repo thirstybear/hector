@@ -28,9 +28,10 @@ class MainController {
     }
 
     private def setLastModifiedHeader() {
-        Date now = new Date()
+        Date lastUpdate = buildMonitor.lastUpdate
+
         DateFormat dateFormatter = new SimpleDateFormat('E, dd MMM yyyy HH:mm:ss z')
-        String dateString = dateFormatter.format(now)
+        String dateString = dateFormatter.format(lastUpdate)
         response.addHeader 'Last-Modified', dateString
     }
 }

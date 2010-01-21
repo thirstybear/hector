@@ -57,20 +57,20 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'unexpected model', [state: passed], controller.modelAndView.model
     }
 
-    void testIndexShouldPopulateLastModifiedHttpHeaderWithPreviousTimeIfNoUpdateSince() {
+    void testIndexShouldPopulateLastModifiedHttpHeaderWithLastUpdateTime() {
         setConfigured()
 
+        Date startOfEpoch = new Date(0L)
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(passed)
+          lastUpdate.returns startOfEpoch
         }
 
         play {
             controller.index()
         }
 
-        // fixme THIS IS A FRAGILE TEST! Fix it!
-        assertEquals new SimpleDateFormat('E, dd MMM yyyy HH:mm:ss z').format(new Date()), controller.response.getHeader('Last-Modified')
-        // TODO ensure date is RFC2822 formatted
+        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
     }
 
     private void setConfigured() {
