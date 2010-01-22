@@ -32,6 +32,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(failed)
             failedProjects.returns projects
+            lastUpdate.returns(new Date())
         }
 
         play {
@@ -47,6 +48,7 @@ class MainControllerTests extends ControllerUnitTestCase {
 
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(passed)
+            lastUpdate.returns(new Date())
         }
 
         play {
