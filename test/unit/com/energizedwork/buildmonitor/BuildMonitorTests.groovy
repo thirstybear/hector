@@ -75,19 +75,19 @@ class BuildMonitorTests extends GroovyTestCase {
 
   void testUpdateShouldUpdateLastUpdateTimeIfProjectChanges() {
 
-      Project project1 = passedProject(name:'project1', state:passed)
-      Project project2 = passedProject(name:'project2', state:passed)
-      Project project3 = passedProject(name:'project3', state:passed)
+      List<Project> allPass = [passedProject, passedProject, passedProject]
+      List<Project> oneFail = [passedProject, failedProject, passedProject]
 
-      setUpHudsonServer([project1, project2, project3])
+      buildMonitor.hudsonServer = mock(HudsonServer) {
+          projects.returns(allPass)
+          projects.returns(oneFail)
+      }
 
       play {
         buildMonitor.update()
         Date update1 = buildMonitor.lastUpdate
 
-        project2.state = failed
         waitForAtLeast(1)
-        println 'Hudson:' + buildMonitor.hudsonServer.projects
 
         buildMonitor.update()
         Date update2 = buildMonitor.lastUpdate
@@ -108,8 +108,8 @@ class BuildMonitorTests extends GroovyTestCase {
         return new Project(state:failed, name:name)
     }
 
-    Project getPassedProject() {
-        return new Project(state:passed)
+    Project getPassedProject(String name = 'passedProject') {
+        return new Project(state:passed, name:name)
     }
 
     private void waitForAtLeast(int delayInMillis) {
