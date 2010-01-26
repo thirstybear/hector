@@ -1,7 +1,9 @@
 <html>
     <head>
 		<meta name="layout" content="main" />
+        <!-- TODO Re-add this!
         <meta http-equiv="refresh" content="2" />
+        -->
     </head>
     <body>
         <g:if test="${failedProjects}">
@@ -10,6 +12,9 @@
                 <li class="failure">${failedProject.name}</li>
             </g:each>
             </ol>
+
+          <embed src='fail.wav' hidden=true autostart=true loop=false>
         </g:if>
+
     </body>
 </html>

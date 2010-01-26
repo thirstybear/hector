@@ -4,11 +4,17 @@
     <facet type="Grails" name="Grails">
       <configuration />
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="Grails" name="Grails" removed="false">
+          <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/web-app" relative="/" />
         </webroots>
         <sourceRoots />
@@ -44,14 +50,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="grails-1.2.0" level="project" />
     <orderEntry type="library" name="grails-1.2.0" level="application" />
     <orderEntry type="module-library">
       <library name="Grails User Library">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
-          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/lib" />
           <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/lib" />
+          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -60,11 +65,6 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="RSS Reading" level="project" />
-    <orderEntry type="library" name="Apache HTTP Client" level="project" />
-    <orderEntry type="library" name="Rome" level="project" />
-    <orderEntry type="library" name="GMock" level="project" />
-    <orderEntry type="library" name="JDom" level="project" />
   </component>
 </module>
 

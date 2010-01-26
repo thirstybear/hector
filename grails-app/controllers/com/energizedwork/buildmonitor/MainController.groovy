@@ -13,21 +13,29 @@ class MainController {
 
     BuildMonitor buildMonitor
     Configuration configuration
+    static DateFormat dateFormatter = new SimpleDateFormat('E, dd MMM yyyy HH:mm:ss z')
 
     def index = {
         if (configuration.state == unconfigured) {
             redirect(controller: 'configure')
         } else {
-            BuildState state = buildMonitor.state
-            Map model = ['state': state]
-            if (state == failed) {
-                model.failedProjects = buildMonitor.failedProjects
-            }
-
             setLastModifiedHeader()
-
-            render(view: 'index', model: model)
+            if (modifiedSinceLastRequest()) {
+                renderPage()
+            } else {
+                reply304()
+            }
         }
+    }
+
+    private def renderPage() {
+        BuildState state = buildMonitor.state
+        Map model = ['state': state]
+        if (state == failed) {
+            model.failedProjects = buildMonitor.failedProjects
+        }
+
+        render(view: 'index', model: model)
     }
 
     private def setLastModifiedHeader() {
@@ -37,15 +45,22 @@ class MainController {
         String dateString = dateFormatter.format(lastUpdate)
         response.addHeader 'Last-Modified', dateString
     }
+
+    private def reply304() {
+        response.sendError 304 
+    }
+
+    private boolean modifiedSinceLastRequest() {
+        String ifModifiedSince = request.getHeader('If-Modified-Since')
+
+        if (ifModifiedSince) {
+            Date ifModifiedSinceDate = dateFormatter.parse(ifModifiedSince);
+            println "mod-since-date $ifModifiedSinceDate"
+            return buildMonitor.lastUpdate.after(ifModifiedSinceDate)
+        } else {
+            return true
+        }
+    }
 }
-
-// TODO add Last-Modified - currently returning 'now' each time. Need to add conditionals
-/*
- Last-Modified attribute needs to be set to
-    1. Request and no change in state - original request time
-    2. Request and has changed - this request time
-
-    change: BuildState & failed project list
- */
 
     

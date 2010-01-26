@@ -58,7 +58,13 @@ class BuildMonitorTests extends GroovyTestCase {
     }
 
   void testUpdateShouldNotUpdateLastUpdateTimeIfNoProjectChange() {
-      setUpHudsonServer([passedProject, passedProject, passedProject])
+      List<Project> allPass1 = [passedProject, passedProject, passedProject]
+      List<Project> allPass2 = [passedProject, passedProject, passedProject]
+
+      buildMonitor.hudsonServer = mock(HudsonServer) {
+          projects.returns(allPass1)
+          projects.returns(allPass2)
+      }
 
       play {
         buildMonitor.update()

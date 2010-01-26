@@ -65,7 +65,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         Date startOfEpoch = new Date(0L)
         controller.buildMonitor = mock(BuildMonitor) {
             state.returns(passed)
-          lastUpdate.returns startOfEpoch
+            lastUpdate.returns startOfEpoch
         }
 
         play {
@@ -73,6 +73,43 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals 200, controller.response.status
+    }
+
+    void testIndexShouldReturn304IfNotModifiedSincePrevious() {
+        setConfigured()
+
+        Date startOfEpoch = new Date(0L)
+        controller.buildMonitor = mock(BuildMonitor) {
+            lastUpdate.returns(startOfEpoch).atLeastOnce()
+        }
+
+        controller.request.addHeader('If-Modified-Since', 'Thu, 01 Jan 1970 01:10:00 GMT')
+
+        play {
+            controller.index()
+        }
+
+        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals 304, controller.response.status
+    }
+
+    void testIndexShouldReturn304IfNotModifiedSinceSameTime() {
+        setConfigured()
+
+        Date startOfEpoch = new Date(0L)
+        controller.buildMonitor = mock(BuildMonitor) {
+            lastUpdate.returns(startOfEpoch).atLeastOnce()
+        }
+
+        controller.request.addHeader('If-Modified-Since', 'Thu, 01 Jan 1970 01:00:00 GMT')
+
+        play {
+            controller.index()
+        }
+
+        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals 304, controller.response.status
     }
 
     private void setConfigured() {
