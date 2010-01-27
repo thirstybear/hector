@@ -9,7 +9,13 @@ class BuildMonitor {
     HudsonServer hudsonServer
     List<Project> projects
 
+    boolean changed
     Date lastUpdate = new Date(0L)
+
+    List<Project> getProjects() {
+        changed = false
+        return projects
+    }
 
     void update() {
 
@@ -24,8 +30,11 @@ class BuildMonitor {
                 state = passed
             }
 
+            // todo move date rounding to here?
             lastUpdate = new Date()
+            changed = true
         }
+
     }
 
     List<Project> getFailedProjects() {

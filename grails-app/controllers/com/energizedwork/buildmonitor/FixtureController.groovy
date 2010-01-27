@@ -7,6 +7,7 @@ class FixtureController {
     static String feedState
 
     Configuration configuration
+    BuildMonitor buildMonitor
 
     def hudsonRss = {        
         StringBuilder buffer = new StringBuilder()

@@ -1,9 +1,7 @@
 <html>
     <head>
 		<meta name="layout" content="main" />
-        <!-- TODO Re-add this!
         <meta http-equiv="refresh" content="2" />
-        -->
     </head>
     <body>
         <g:if test="${failedProjects}">

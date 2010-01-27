@@ -10,7 +10,7 @@ class ConfigureController {
     def save = {
         configuration.url = params.url
         buildMonitor.update()
-        redirect(controller: 'main')
+        redirect(controller: 'main', model:[forcereload:true])
     }
 
 }

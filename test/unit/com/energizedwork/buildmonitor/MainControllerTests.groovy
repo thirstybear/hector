@@ -1,5 +1,7 @@
 package com.energizedwork.buildmonitor
 
+import static com.energizedwork.buildmonitor.HttpConstants.*
+
 import com.energizedwork.buildmonitor.BuildMonitor
 import com.energizedwork.buildmonitor.Configuration
 import com.energizedwork.buildmonitor.Project
@@ -13,6 +15,20 @@ import java.text.SimpleDateFormat
 
 @WithGMock
 class MainControllerTests extends ControllerUnitTestCase {
+
+    final String GMT_EPOCH = 'Thu, 01 Jan 1970 00:00:00 GMT'
+    TimeZone originalTimeZone
+
+    void setUp() {
+        originalTimeZone = TimeZone.default
+        TimeZone.default = TimeZone.getTimeZone(TimeZone.GMT_ID)
+        super.setUp()
+    }
+
+    void tearDown() {
+        super.tearDown()
+        TimeZone.default = originalTimeZone
+    }
 
     void testIndexRedirectsToConfigureIfSystemIsNotConfigured() {
         setUnconfigured()
@@ -59,7 +75,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 'unexpected model', [state: passed], controller.modelAndView.model
     }
 
-    void testIndexShouldPopulateLastModifiedHttpHeaderWithLastUpdateTime() {
+    void testIndexShouldPopulateLastModifiedHttpHeaderWithLastUpdateTime() {        
         setConfigured()
 
         Date startOfEpoch = new Date(0L)
@@ -72,7 +88,7 @@ class MainControllerTests extends ControllerUnitTestCase {
             controller.index()
         }
 
-        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals GMT_EPOCH, controller.response.getHeader(LAST_MODIFIED)
         assertEquals 200, controller.response.status
     }
 
@@ -84,13 +100,13 @@ class MainControllerTests extends ControllerUnitTestCase {
             lastUpdate.returns(startOfEpoch).atLeastOnce()
         }
 
-        controller.request.addHeader('If-Modified-Since', 'Thu, 01 Jan 1970 01:10:00 GMT')
+        controller.request.addHeader(IF_MODIFIED_SINCE, 'Thu, 01 Jan 1970 00:10:00 GMT')
 
         play {
             controller.index()
         }
 
-        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals GMT_EPOCH, controller.response.getHeader(LAST_MODIFIED)
         assertEquals 304, controller.response.status
     }
 
@@ -102,13 +118,13 @@ class MainControllerTests extends ControllerUnitTestCase {
             lastUpdate.returns(laterThanIfModifiedSince).atLeastOnce()
         }
 
-        controller.request.addHeader('If-Modified-Since', 'Thu, 01 Jan 1970 01:00:00 GMT')
+        controller.request.addHeader(IF_MODIFIED_SINCE, GMT_EPOCH)
 
         play {
             controller.index()
         }
 
-        assertEquals 'Thu, 01 Jan 1970 01:00:00 GMT', controller.response.getHeader('Last-Modified')
+        assertEquals GMT_EPOCH, controller.response.getHeader(LAST_MODIFIED)
         assertEquals 304, controller.response.status
     }
 
