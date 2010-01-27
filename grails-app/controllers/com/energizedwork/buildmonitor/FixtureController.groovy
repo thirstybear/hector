@@ -39,10 +39,12 @@ class FixtureController {
 
     def pass = {
         feedState = SUCCESS
+        render text:"/fixture/feed will now return $feedState"
     }
 
     def fail = {
         feedState = FAILURE
+        render text:"/fixture/feed will now return $feedState"
     }
 
     private Closure renderHudsonRssEntries = { String commaSeparatedNames, String state, StringBuilder buffer ->
