@@ -60,12 +60,6 @@ class MainController {
             // something to do with including 'z' timezone.
             Date ifModifiedSinceDate = dateParser.parse(ifModifiedSince);
 
-            // todo remove println!
-            println "Original if-mod-since $ifModifiedSince"
-            println "if-mod-since-date $ifModifiedSinceDate (${ifModifiedSinceDate.getTime()})"
-            println "lastUpdate: $buildMonitor.lastUpdate (${buildMonitor.lastUpdate.getTime()})"
-
-
             Date lastMonitorUpdate = buildMonitor.lastUpdate
             Date roundedLastMonitorUpdate = DateUtils.round(lastMonitorUpdate, Calendar.SECOND)
             return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
