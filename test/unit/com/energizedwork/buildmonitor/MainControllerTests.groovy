@@ -94,12 +94,12 @@ class MainControllerTests extends ControllerUnitTestCase {
         assertEquals 304, controller.response.status
     }
 
-    void testIndexShouldReturn304IfNotModifiedSinceSameTime() {
+    void testIndexShouldReturn304IfNotModifiedWithin1Second() {
         setConfigured()
 
-        Date startOfEpoch = new Date(0L)
+        Date almostStartOfEpoch = new Date(10L)
         controller.buildMonitor = mock(BuildMonitor) {
-            lastUpdate.returns(startOfEpoch).atLeastOnce()
+            lastUpdate.returns(almostStartOfEpoch).atLeastOnce()
         }
 
         controller.request.addHeader('If-Modified-Since', 'Thu, 01 Jan 1970 01:00:00 GMT')

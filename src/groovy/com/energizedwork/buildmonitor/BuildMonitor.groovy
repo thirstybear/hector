@@ -16,9 +16,6 @@ class BuildMonitor {
         List<Project> newProjects = hudsonServer.projects
 
         if (projects != newProjects) {
-
-            println 'Projects are different. Update!!'
-            
             projects = newProjects
 
             if(projects.find { it.state == failed }) {
