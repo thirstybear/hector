@@ -57,7 +57,7 @@ class BuildMonitorTests extends GroovyTestCase {
         assertEquals ([failingProjectA, failingProjectZ], buildMonitor.failedProjects)
     }
 
-  void testUpdateShouldNotUpdateLastUpdateTimeIfNoProjectChange() {
+    void testUpdateShouldNotUpdateLastUpdateTimeIfNoProjectChange() {
       List<Project> allPass1 = [passedProject, passedProject, passedProject]
       List<Project> allPass2 = [passedProject, passedProject, passedProject]
 
@@ -79,7 +79,7 @@ class BuildMonitorTests extends GroovyTestCase {
       }
   }
 
-  void testUpdateShouldUpdateLastUpdateTimeIfProjectChanges() {
+    void testUpdateShouldUpdateLastUpdateTimeIfProjectChanges() {
 
       List<Project> allPass = [passedProject, passedProject, passedProject]
       List<Project> oneFail = [passedProject, failedProject, passedProject]
@@ -103,6 +103,27 @@ class BuildMonitorTests extends GroovyTestCase {
         assertTrue "update times should be different", t2 > t1
       }
   }
+
+    /**
+     void testIndexShouldReturn304IfNotModifiedWithin1Second() {
+             setConfigured()
+
+             Date laterThanIfModifiedSince = new Date(10L)
+             controller.buildMonitor = mock(BuildMonitor) {
+                 lastUpdate.returns(laterThanIfModifiedSince).atLeastOnce()
+             }
+
+             controller.request.addHeader(IF_MODIFIED_SINCE, GMT_EPOCH)
+
+             play {
+                 controller.index()
+             }
+
+             assertEquals GMT_EPOCH, controller.response.getHeader(LAST_MODIFIED)
+             assertEquals 304, controller.response.status
+         }
+
+     */
 
     void setUpHudsonServer(List<Project> result) {
         buildMonitor.hudsonServer = mock(HudsonServer) {

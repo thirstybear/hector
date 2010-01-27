@@ -43,4 +43,20 @@ class BuildMonitor {
         }.sort { it.name }
     }
 
+    /*
+
+//        String ifModifiedSince = request.getHeader(IF_MODIFIED_SINCE)
+//
+//        if (ifModifiedSince) {
+//            Date ifModifiedSinceDate = dateFormatter.parse(ifModifiedSince);
+//
+//            Date lastMonitorUpdate = buildMonitor.lastUpdate
+//            Date roundedLastMonitorUpdate = DateUtils.round(lastMonitorUpdate, Calendar.SECOND)
+//
+//             return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
+//        } else {
+//            return true
+//        }    
+     */
+
 }

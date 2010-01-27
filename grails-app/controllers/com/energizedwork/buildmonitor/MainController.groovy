@@ -23,8 +23,9 @@ class MainController {
         if (configuration.state == unconfigured) {
             redirect(controller: 'configure')
         } else {
+            //TODO test when buildmonitor lastUpdate is null
             setLastModifiedHeader()
-            if (modifiedSinceLastRequest()) {
+            if (buildMonitor.hasChanged(ifModifiedSince)) {
                 renderPage()
             } else {
                 reply304()
@@ -52,24 +53,20 @@ class MainController {
         response.sendError 304
     }
 
-    private boolean modifiedSinceLastRequest() {
+    private Date getIfModifiedSince() {
+        Date result
         String ifModifiedSince = request.getHeader(IF_MODIFIED_SINCE)
 
         if (ifModifiedSince) {
-            Date ifModifiedSinceDate = dateFormatter.parse(ifModifiedSince);
-
-            Date lastMonitorUpdate = buildMonitor.lastUpdate
-            Date roundedLastMonitorUpdate = DateUtils.round(lastMonitorUpdate, Calendar.SECOND)
-
-             return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
-        } else {
-            return true
+            result = dateFormatter.parse(ifModifiedSince);
         }
+
+        return result
     }
 
     private DateFormat getDateFormatter() {
         if(!dateFormatterImpl) {
-            dateFormatterImpl = new SimpleDateFormat(ISO_DATE_FORMAT)    
+            dateFormatterImpl = new SimpleDateFormat(ISO_DATE_FORMAT)
         }
         return dateFormatterImpl
     }
