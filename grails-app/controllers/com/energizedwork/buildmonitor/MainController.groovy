@@ -31,6 +31,8 @@ class MainController {
     }
 
     private def renderPage() {
+        println 'rendering page'
+
         BuildState state = buildMonitor.state
         Map model = ['state': state]
         if (state == failed) {
@@ -41,28 +43,34 @@ class MainController {
     }
 
     private def setLastModifiedHeader() {
+        //Date lastUpdate = DateUtils.round(buildMonitor.lastUpdate, Calendar.SECOND)
         Date lastUpdate = buildMonitor.lastUpdate
-
+        
         DateFormat dateFormatter = new SimpleDateFormat('E, dd MMM yyyy HH:mm:ss z')
         String dateString = dateFormatter.format(lastUpdate)
         response.addHeader 'Last-Modified', dateString
     }
 
     private def reply304() {
-        response.sendError 304 
+        println 'sending 304'
+        response.sendError 304
     }
 
     private boolean modifiedSinceLastRequest() {
         String ifModifiedSince = request.getHeader('If-Modified-Since')
 
         if (ifModifiedSince) {
-            // Note: using the original dateFormatter to parse is producing the wrong result (t + 1 hour). WTF?
-            // something to do with including 'z' timezone.
+            //  WTF: using the original dateFormatter to parse is producing the wrong result (t + 1 hour).
+            // something to do with including 'z' timezone?
             Date ifModifiedSinceDate = dateParser.parse(ifModifiedSince);
 
             Date lastMonitorUpdate = buildMonitor.lastUpdate
             Date roundedLastMonitorUpdate = DateUtils.round(lastMonitorUpdate, Calendar.SECOND)
-            return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
+
+            println "if-mod-since    : $ifModifiedSinceDate ($ifModifiedSinceDate.time)"
+            println "last-mod-rounded: $roundedLastMonitorUpdate ($roundedLastMonitorUpdate.time)"
+
+             return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
         } else {
             return true
         }
