@@ -1,7 +1,6 @@
 <html>
 <head>
-  <meta name="layout" content="main"/>
-  <!--<meta http-equiv="refresh" content="2"/>-->
+  <meta name="layout" content="main"/>  
   <g:javascript library="audio-player"/>
   <script type="text/javascript">
     AudioPlayer.setup("/player.swf", {
