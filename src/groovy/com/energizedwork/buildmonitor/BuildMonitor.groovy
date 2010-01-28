@@ -10,16 +10,11 @@ class BuildMonitor {
     HudsonServer hudsonServer
     List<Project> projects
 
-    boolean changed
+    boolean forceClientReload
     Date lastUpdate
 
-    List<Project> getProjects() {
-        changed = false
-        return projects
-    }
-
     boolean hasChanged(Date lastClientUpdate) {
-        boolean result = changed
+        boolean result = forceClientReload
 
         if(!result) {
             if(lastClientUpdate && lastUpdate) {
@@ -28,6 +23,8 @@ class BuildMonitor {
                 result = true
             }
         }
+
+        forceClientReload = false
 
         return result
     }
@@ -46,7 +43,7 @@ class BuildMonitor {
             }
 
             setLastUpdate(new Date())
-            changed = true
+            forceClientReload = true
         }
 
     }

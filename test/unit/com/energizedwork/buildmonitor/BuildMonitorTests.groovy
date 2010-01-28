@@ -146,7 +146,7 @@ class BuildMonitorTests extends GroovyTestCase {
 
     void testHasChangedReturnsTrueGivenInternalUpdateFlag() {
         Date date = new Date(1000L)
-        buildMonitor.changed = true
+        buildMonitor.forceClientReload = true
 
         assertBuildMonitorHasChanged date, date
     }

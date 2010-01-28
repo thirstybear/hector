@@ -1,18 +1,31 @@
 <html>
-    <head>
-		<meta name="layout" content="main" />
-        <meta http-equiv="refresh" content="2" />
-    </head>
-    <body>
-        <g:if test="${failedProjects}">
-            <ol>
-            <g:each in="${failedProjects}" var="failedProject">
-                <li class="failure">${failedProject.name}</li>
-            </g:each>
-            </ol>
+<head>
+  <meta name="layout" content="main"/>
+  <!--<meta http-equiv="refresh" content="2"/>-->
+  <g:javascript library="audio-player"/>
+  <script type="text/javascript">
+    AudioPlayer.setup("/player.swf", {
+      autostart: "yes",
+      width: 0
+    });
+  </script>  
+</head>
+<body>
+<g:if test="${failedProjects}">
+  <ol>
+    <g:each in="${failedProjects}" var="failedProject">
+      <li class="failure">${failedProject.name}</li>
+    </g:each>
+  </ol>
 
-          <embed src='fail.wav' hidden=true autostart=true loop=false>
-        </g:if>
+  <div id="audioplayer_1"></div>
+  <script type="text/javascript">
+    AudioPlayer.embed("audioplayer_1", {
+      soundFile: "/alarm_1.mp3"
+    });
 
-    </body>
+  </script>
+</g:if>
+
+</body>
 </html>
