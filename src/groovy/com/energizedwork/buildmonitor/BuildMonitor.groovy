@@ -2,6 +2,7 @@ package com.energizedwork.buildmonitor
 
 import static com.energizedwork.buildmonitor.BuildState.*
 import com.energizedwork.buildmonitor.hudson.HudsonServer
+import org.apache.commons.lang.time.DateUtils
 
 class BuildMonitor {
 
@@ -10,11 +11,25 @@ class BuildMonitor {
     List<Project> projects
 
     boolean changed
-    Date lastUpdate = new Date(0L)
+    Date lastUpdate
 
     List<Project> getProjects() {
         changed = false
         return projects
+    }
+
+    boolean hasChanged(Date lastClientUpdate) {
+        boolean result = changed
+
+        if(!result) {
+            if(lastClientUpdate && lastUpdate) {
+                result = lastUpdate.after(lastClientUpdate)
+            } else {
+                result = true
+            }
+        }
+
+        return result
     }
 
     void update() {
@@ -30,8 +45,7 @@ class BuildMonitor {
                 state = passed
             }
 
-            // todo move date rounding to here?
-            lastUpdate = new Date()
+            setLastUpdate(new Date())
             changed = true
         }
 
@@ -43,20 +57,15 @@ class BuildMonitor {
         }.sort { it.name }
     }
 
-    /*
+    void setLastUpdate(Date newLastUpdate) {
+        if(newLastUpdate) {
+            if(DateUtils.getFragmentInMilliseconds(newLastUpdate, Calendar.SECOND)) {
+                newLastUpdate = DateUtils.truncate(newLastUpdate, Calendar.SECOND)
+                newLastUpdate = DateUtils.addSeconds(newLastUpdate, 1)
+            }
+        }
 
-//        String ifModifiedSince = request.getHeader(IF_MODIFIED_SINCE)
-//
-//        if (ifModifiedSince) {
-//            Date ifModifiedSinceDate = dateFormatter.parse(ifModifiedSince);
-//
-//            Date lastMonitorUpdate = buildMonitor.lastUpdate
-//            Date roundedLastMonitorUpdate = DateUtils.round(lastMonitorUpdate, Calendar.SECOND)
-//
-//             return roundedLastMonitorUpdate.after(ifModifiedSinceDate)
-//        } else {
-//            return true
-//        }    
-     */
+        lastUpdate = newLastUpdate
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.energizedwork.buildmonitor
 
-import static com.energizedwork.buildmonitor.HttpConstants.*
+import static com.energizedwork.web.support.HttpConstants.*
 
 import com.energizedwork.buildmonitor.BuildMonitor
 import com.energizedwork.buildmonitor.Configuration
@@ -92,6 +92,23 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals GMT_EPOCH, controller.response.getHeader(LAST_MODIFIED)
+        assertEquals 200, controller.response.status
+    }
+
+    void testIndexDoesNotPopulateLastModifiedHttpHeaderIfBuildMonitorDoesNotHaveLastUpdateTime() {        
+        setConfigured()
+
+        controller.buildMonitor = mock(BuildMonitor) {
+            state.returns passed
+            hasChanged(match { it == null }).returns true
+            lastUpdate.returns null
+        }
+
+        play {
+            controller.index()
+        }
+
+        assertFalse controller.response.containsHeader(LAST_MODIFIED)
         assertEquals 200, controller.response.status
     }
 

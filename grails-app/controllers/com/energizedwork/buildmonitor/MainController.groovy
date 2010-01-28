@@ -1,6 +1,6 @@
 package com.energizedwork.buildmonitor
 
-import static com.energizedwork.buildmonitor.HttpConstants.*
+import static com.energizedwork.web.support.HttpConstants.*
 
 import static com.energizedwork.buildmonitor.BuildState.failed
 import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
@@ -23,17 +23,16 @@ class MainController {
         if (configuration.state == unconfigured) {
             redirect(controller: 'configure')
         } else {
-            //TODO test when buildmonitor lastUpdate is null
-            setLastModifiedHeader()
+            setLastModified(buildMonitor.lastUpdate)
             if (buildMonitor.hasChanged(ifModifiedSince)) {
                 renderPage()
             } else {
-                reply304()
+                replyNotModified()
             }
         }
     }
 
-    private def renderPage() {
+    private void renderPage() {
         BuildState state = buildMonitor.state
         Map model = ['state': state]
         if (state == failed) {
@@ -43,14 +42,8 @@ class MainController {
         render(view: 'index', model: model)
     }
 
-    private def setLastModifiedHeader() {
-        Date lastUpdate = DateUtils.round(buildMonitor.lastUpdate, Calendar.SECOND)
-        String dateString = dateFormatter.format(lastUpdate)
-        response.addHeader LAST_MODIFIED, dateString
-    }
-
-    private def reply304() {
-        response.sendError 304
+    private void replyNotModified() {
+        response.sendError NOT_MODIFIED
     }
 
     private Date getIfModifiedSince() {
@@ -62,6 +55,14 @@ class MainController {
         }
 
         return result
+    }
+        
+    private void setLastModified(Date lastModified) {
+        if(lastModified) {
+            Date lastUpdate = DateUtils.round(lastModified, Calendar.SECOND)
+            String dateString = dateFormatter.format(lastUpdate)
+            response.addHeader LAST_MODIFIED, dateString
+        }
     }
 
     private DateFormat getDateFormatter() {
