@@ -1,6 +1,8 @@
 <html>
 <head>
   <meta name="layout" content="main"/>  
+  <g:javascript library="jquery-1.4.1.min" />
+  <g:javascript library="application" />
   <g:javascript library="audio-player"/>
   <script type="text/javascript">
     AudioPlayer.setup("/player.swf", {
