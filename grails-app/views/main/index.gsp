@@ -22,7 +22,7 @@
   <div id="audioplayer_1"></div>
   <script type="text/javascript">
     AudioPlayer.embed("audioplayer_1", {
-      soundFile: "/alarm_1.mp3"
+      soundFile: "/fail.mp3"
     });
 
   </script>
