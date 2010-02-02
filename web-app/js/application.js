@@ -1,7 +1,5 @@
 $(function() {
-
     window.setInterval ("checkForUpdate()", 10000)
-
 });
 
 function checkForUpdate() {
@@ -9,10 +7,16 @@ function checkForUpdate() {
     url: '/',
     type: 'HEAD',
     ifModified: true,
-    success: function(data) {
-            alert (request.status)
-            if (data == null) alert ('data is null')
-            alert('Load was performed.');
+
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('If-Modified-Since', new Date(window.document.lastModified).toUTCString());
+    },     
+
+    complete: function(request, textStatus) {
+            if (request.status != 304) {
+                window.location.reload();
+            }
         }
     });
 }
+
