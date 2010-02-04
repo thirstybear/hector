@@ -7,7 +7,6 @@
   <g:javascript library="audio-player"/>
   <script type="text/javascript">
     AudioPlayer.setup("/player.swf", {
-      autostart: "yes",
       width: 0
     });
   </script>  
@@ -22,8 +21,14 @@
 
     <div id="audioplayer_1">
       <script type="text/javascript">
+        var playSound = $.cookies.get('playsounds');
+        if (playSound == null) {
+          playSound = "no";
+        }
+
         AudioPlayer.embed("audioplayer_1", {
-          soundFile: "/fail.mp3"
+          soundFile: "/fail.mp3",
+          autostart: playSound
         });
       </script>
     </div>

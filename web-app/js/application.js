@@ -24,6 +24,7 @@ function checkForUpdate() {
 function toggleSound() {
    toggleCookieValue();
    updateSpeakerIcon();
+   window.location.reload();
 }
 
 function toggleCookieValue() {
