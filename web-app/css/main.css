@@ -10,3 +10,19 @@ body.failed {
 body.passed {
     background-color: #87af49;
 }
+
+#playsound {
+    position:absolute;
+    bottom:10;
+    right:10;
+}
+
+li {
+    list-style:none;
+}
+
+li.failure {
+    font-size:100px;
+    font-family:sans-serif;
+    text-align:center;
+}
