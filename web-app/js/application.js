@@ -1,4 +1,5 @@
 $(function() {
+    updateSpeakerIcon();
     window.setInterval ("checkForUpdate()", 10000)
 });
 
@@ -20,3 +21,27 @@ function checkForUpdate() {
     });
 }
 
+function toggleSound() {
+   toggleCookieValue();
+   updateSpeakerIcon();
+}
+
+function toggleCookieValue() {
+    var playValue = $.cookies.get('playsounds');
+
+    if (playValue = null || playValue == 'no') {
+        $.cookies.set('playsounds', 'yes');
+    } else {
+        $.cookies.set('playsounds', 'no');
+    }
+}
+
+function updateSpeakerIcon() {
+    var playValue = $.cookies.get('playsounds');
+
+    if (playValue == null || playValue == 'no') {
+        document['speaker_icon'].src = '/images/sound_off.png';
+    } else {
+        document['speaker_icon'].src = '/images/sound_on.png';
+    }
+}

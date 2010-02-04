@@ -2,6 +2,7 @@
 <head>
   <meta name="layout" content="main"/>  
   <g:javascript library="jquery-1.4.1.min" />
+  <g:javascript library="jquery.cookies.2.2.0.min" />
   <g:javascript library="application" />
   <g:javascript library="audio-player"/>
   <script type="text/javascript">
@@ -28,5 +29,10 @@
   </script>
 </g:if>
 
+  <div id="playsound">
+    <a href="#" onClick="toggleSound()">
+      <img id="speaker_icon" border="0" width="50px"/>
+    </a>
+  </div>
 </body>
 </html>
