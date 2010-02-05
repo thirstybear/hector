@@ -7,6 +7,8 @@ import com.sun.syndication.feed.synd.SyndFeed
 import com.sun.syndication.feed.synd.SyndEntry
 import com.energizedwork.buildmonitor.BuildState
 import com.energizedwork.feed.FeedRetriever
+import com.energizedwork.feed.XmlDocumentRetriever
+import com.energizedwork.buildmonitor.Change
 
 
 class HudsonServer {
@@ -17,6 +19,7 @@ class HudsonServer {
     static final String ABORTED = 'ABORTED'
 
     FeedRetriever feedRetriever
+    XmlDocumentRetriever xmlDocumentRetriever
 
     List<Project> getProjects() {
         SyndFeed feed = feedRetriever.update()
@@ -27,7 +30,6 @@ class HudsonServer {
     }
 
     private Project buildProject(SyndEntry entry) {
-
         String feedTitle = entry.title
 
         int hashIndex = feedTitle.indexOf('#')
@@ -37,8 +39,20 @@ class HudsonServer {
         String stateString = stateMatcher[0][1]
 
         BuildState state = mapHudsonStateStringToBuildState(stateString)
+        List<Change> changeset = getChangeSet(entry)
 
-        return new Project(name:projectName, state:state)
+        return new Project(name:projectName, state:state, changeset:changeset)
+    }
+
+    private List<Change> getChangeSet(SyndEntry entry) {
+        List<Change> result = []
+        def xml = xmlDocumentRetriever.getXml("${entry.link}/api/xml")
+        def msgs = xml.changeSet.item.msg
+        msgs.each {
+            println it.text()
+            result << new Change()
+        }
+        return result
     }
 
     BuildState mapHudsonStateStringToBuildState(String buildStateString) {

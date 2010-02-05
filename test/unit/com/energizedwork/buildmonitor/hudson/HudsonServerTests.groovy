@@ -8,11 +8,14 @@ import com.energizedwork.buildmonitor.Project
 import com.sun.syndication.feed.synd.SyndFeed
 import com.sun.syndication.feed.synd.SyndEntry
 import com.energizedwork.feed.FeedRetriever
+import com.energizedwork.feed.XmlDocumentRetriever
+import com.energizedwork.buildmonitor.Change
 
 @WithGMock
 class HudsonServerTests extends GroovyTestCase {
 
     HudsonServer hudsonServer
+    String buildXmlLink = 'http://mockhudsonproject'
 
     void setUp() {
         hudsonServer = new HudsonServer()
@@ -22,7 +25,7 @@ class HudsonServerTests extends GroovyTestCase {
         String projectName = 'project1'
         String projectState = SUCCESS
 
-        setUpHudsonFeed projectName, projectState
+        setUpHudsonServer projectName, projectState
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -36,7 +39,7 @@ class HudsonServerTests extends GroovyTestCase {
         String projectName = 'project2'
         String projectState = FAILURE
 
-        setUpHudsonFeed projectName, projectState
+        setUpHudsonServer projectName, projectState
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -50,7 +53,7 @@ class HudsonServerTests extends GroovyTestCase {
         String projectName = 'project2'
         String projectState = ABORTED
 
-        setUpHudsonFeed projectName, projectState
+        setUpHudsonServer projectName, projectState
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -64,7 +67,7 @@ class HudsonServerTests extends GroovyTestCase {
         String projectName = 'project2'
         String projectState = BUILDING
 
-        setUpHudsonFeed projectName, projectState
+        setUpHudsonServer projectName, projectState
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -77,10 +80,13 @@ class HudsonServerTests extends GroovyTestCase {
     void testGetProjectsCanParseSyndFeedObjectWithMultipleEntries() {
         List<String> projectNames = ['myproject', 'yourproject', 'hisproject']
 
+        String linkUrl = buildXmlLink
+
         List<SyndEntry> feedEntries = []
         projectNames.each {String projectName ->
             feedEntries << mock(SyndEntry) {
                 title.returns "$projectName #123 (${SUCCESS})"
+                link.returns linkUrl
             }
         }
 
@@ -91,6 +97,8 @@ class HudsonServerTests extends GroovyTestCase {
         hudsonServer.feedRetriever = mock(FeedRetriever) {
             update().returns mockSyndFeed
         }
+
+        setUpHudsonBuildXml linkUrl
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -102,9 +110,42 @@ class HudsonServerTests extends GroovyTestCase {
         }
     }
 
-    void setUpHudsonFeed(String projectName, String projectState) {
+    void testGetProjectsShouldReturnProjectsWithCheckinUser() {
+        /*
+            Get link property from RSS
+            Get data from link.href
+            Parse data for changeset & add to Project
+         */
+
+        String projectName = 'failproject'
+        String projectState = FAILURE
+
+        setUpHudsonServer projectName, projectState
+
+        play {
+            List<Project> actual = hudsonServer.projects
+            assertEquals 1, actual.size()
+
+            Project project = actual[0]
+            assertEquals projectName, project.name
+            assertEquals failed, project.state
+
+            List<Change> changeset = project.changeset
+            assertEquals 2, changeset.size()
+        }
+
+
+    }   
+
+    void setUpHudsonServer(String projectName, String projectState) {
+        setUpHudsonFeed(projectName, projectState, buildXmlLink)
+        setUpHudsonBuildXml(buildXmlLink)
+    }
+
+    void setUpHudsonFeed(String projectName, String projectState, String linkUrl) {
         SyndEntry mockSyndEntry = mock(SyndEntry) {
             title.returns "$projectName #123 ($projectState)"
+            link.returns linkUrl
         }
         List<SyndEntry> feedEntries = [mockSyndEntry]
 
@@ -115,6 +156,17 @@ class HudsonServerTests extends GroovyTestCase {
         hudsonServer.feedRetriever = mock(FeedRetriever) {
             update().returns mockSyndFeed
         }
+    }
+
+    void setUpHudsonBuildXml(String linkUrl) {
+        File failingBuildXml = new File('test/resources/failingBuild.xml')
+        assertTrue 'Test resource file not found', failingBuildXml.exists()
+
+        def xml = new XmlParser().parse(failingBuildXml)
+
+        hudsonServer.xmlDocumentRetriever = mock(XmlDocumentRetriever) {
+            getXml("${linkUrl}/api/xml").returns(xml).atLeastOnce()
+        }        
     }
 
 }

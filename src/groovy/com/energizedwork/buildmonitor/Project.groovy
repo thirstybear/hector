@@ -5,6 +5,7 @@ class Project {
 
     String name
     BuildState state
+    List<Change> changeset
 
     String toString() {
         return "$name ($state)"
