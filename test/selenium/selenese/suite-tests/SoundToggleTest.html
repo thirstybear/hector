@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Ensure Sound Toggles Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Ensure Sound Toggles Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>deleteCookie</td>
+	<td>playsounds</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/fixture/reset</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/configure</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>url</td>
+	<td>http://localhost:8080/fixture/hudsonRss?pass=HudsonMonitor</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>configure-form-save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForLocation</td>
+	<td>*/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=audioplayer_1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/configure</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>url</td>
+	<td>http://localhost:8080/fixture/hudsonRss?fail=HudsonMonitor</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>configure-form-save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForLocation</td>
+	<td>*/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Build Monitor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAttribute</td>
+	<td>document.body@class</td>
+	<td>failed</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=audioplayer_1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertCookieNotPresent</td>
+	<td>playsounds</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>speaker_icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertCookieByName</td>
+	<td>playsounds</td>
+	<td>yes</td>
+</tr>
+<tr>
+	<td>waitForAttribute</td>
+	<td>document.body@class</td>
+	<td>failed</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>speaker_icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertCookieByName</td>
+	<td>playsounds</td>
+	<td>no</td>
+</tr>
+<tr>
+	<td>waitForAttribute</td>
+	<td>document.body@class</td>
+	<td>failed</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>speaker_icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPageToLoad</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertCookieByName</td>
+	<td>playsounds</td>
+	<td>yes</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

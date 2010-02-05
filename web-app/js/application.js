@@ -30,7 +30,7 @@ function toggleSound() {
 function toggleCookieValue() {
     var playValue = $.cookies.get('playsounds');
 
-    if (playValue = null || playValue == 'no') {
+    if (playValue == null || playValue == 'no') {
         $.cookies.set('playsounds', 'yes');
     } else {
         $.cookies.set('playsounds', 'no');
