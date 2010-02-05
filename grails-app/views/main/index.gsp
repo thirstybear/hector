@@ -34,10 +34,12 @@
     </div>
   </g:if>
 
-  <div id="playsound">
-    <a href="#" onClick="toggleSound()">
-      <img id="speaker_icon" border="0" width="50px" alt="Toggle Sound On/Off" title="Toggle Sound On/Off"/>
-    </a>
+  <div id="toolbar">
+    <div id="playsound">
+      <a href="#" onClick="toggleSound()">
+        <img id="speaker_icon" border="0" width="50px" alt="Toggle Sound On/Off" title="Toggle Sound On/Off"/>
+      </a>
+    </div>
   </div>
 </body>
 </html>

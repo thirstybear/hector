@@ -22,7 +22,13 @@ li {
 }
 
 li.failure {
+    font-family:arial,sans-serif;
     font-size:100px;
-    font-family:sans-serif;
+    font-variant:small-caps;
+    font-weight:bold;
     text-align:center;
+}
+
+#content {
+    padding-top: 50px;
 }
