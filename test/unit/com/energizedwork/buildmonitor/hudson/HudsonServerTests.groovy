@@ -15,7 +15,7 @@ import com.energizedwork.buildmonitor.Change
 class HudsonServerTests extends GroovyTestCase {
 
     HudsonServer hudsonServer
-    String buildXmlLink = 'http://mockhudsonproject'
+    String buildXmlLink = 'http://mockhudsonproject/'
 
     void setUp() {
         hudsonServer = new HudsonServer()
@@ -86,7 +86,7 @@ class HudsonServerTests extends GroovyTestCase {
         projectNames.each {String projectName ->
             feedEntries << mock(SyndEntry) {
                 title.returns "$projectName #123 (${SUCCESS})"
-                link.returns linkUrl
+                link.returns(linkUrl).atLeastOnce()
             }
         }
 
@@ -132,10 +132,18 @@ class HudsonServerTests extends GroovyTestCase {
 
             List<Change> changeset = project.changeset
             assertEquals 2, changeset.size()
+
+            assertEquals('gus', changeset[0].owner)
+            assertEquals('chris', changeset[1].owner)
+
         }
 
 
-    }   
+    }
+    
+    public void testGetProjectsShouldCopeWithEmptyChangeSetsInProjectXml() {
+        fail 'Write this test!!'
+    }
 
     void setUpHudsonServer(String projectName, String projectState) {
         setUpHudsonFeed(projectName, projectState, buildXmlLink)
@@ -145,7 +153,7 @@ class HudsonServerTests extends GroovyTestCase {
     void setUpHudsonFeed(String projectName, String projectState, String linkUrl) {
         SyndEntry mockSyndEntry = mock(SyndEntry) {
             title.returns "$projectName #123 ($projectState)"
-            link.returns linkUrl
+            link.returns(linkUrl).atLeastOnce()
         }
         List<SyndEntry> feedEntries = [mockSyndEntry]
 
@@ -165,7 +173,7 @@ class HudsonServerTests extends GroovyTestCase {
         def xml = new XmlParser().parse(failingBuildXml)
 
         hudsonServer.xmlDocumentRetriever = mock(XmlDocumentRetriever) {
-            getXml("${linkUrl}/api/xml").returns(xml).atLeastOnce()
+            getXml("${linkUrl}api/xml").returns(xml).atLeastOnce()
         }        
     }
 

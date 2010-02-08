@@ -3,6 +3,8 @@ class UrlMappings {
 
         '/'(controller: 'main')
 
+        "/hudson/job/$projectName/$buildNumber/api/xml" (controller:'fixture', action:'projectBuildXml')
+
         "/$controller/$action?/$id?" {
             constraints {}
         }

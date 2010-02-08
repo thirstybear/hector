@@ -54,7 +54,12 @@ class FixtureController {
 
         projectNames.each { String projectName ->
             buffer << g.render(template: 'hudsonRssEntry', model: [projectName: projectName, projectState: state])
-        }                        
+        }
+    }
+
+
+    def projectBuildXml = {
+        render (view:'failingBuild', contentType:'application/xml')
     }
 
 }

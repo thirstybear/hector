@@ -19,6 +19,12 @@
       </g:each>
     </ol>
 
+    <ol>
+      <g:each in="${failedProjects.changeSet}" var="change">
+        <li class="failure">${change.owner}</li>
+      </g:each>
+    </ol>
+
     <div id="audioplayer_1">
       <script type="text/javascript">
         var playSound = $.cookies.get('playsounds');

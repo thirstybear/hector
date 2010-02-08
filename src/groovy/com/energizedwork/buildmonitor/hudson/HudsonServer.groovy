@@ -46,11 +46,12 @@ class HudsonServer {
 
     private List<Change> getChangeSet(SyndEntry entry) {
         List<Change> result = []
-        def xml = xmlDocumentRetriever.getXml("${entry.link}/api/xml")
+        println "ChangeSet: Getting url ${entry.link}api/xml"
+        def xml = xmlDocumentRetriever.getXml("${entry.link}api/xml")
+
         def msgs = xml.changeSet.item.msg
         msgs.each {
-            println it.text()
-            result << new Change()
+            result << new Change(it)
         }
         return result
     }

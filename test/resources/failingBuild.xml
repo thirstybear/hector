@@ -1,0 +1,56 @@
+<freeStyleBuild>
+    <action>
+        <cause>
+            <shortDescription>Started by user anonymous</shortDescription>
+            <userName>anonymous</userName>
+        </cause>
+    </action>
+    <action></action>
+    <action>
+        <failCount>0</failCount>
+        <skipCount>0</skipCount>
+        <totalCount>52</totalCount>
+        <urlName>testReport</urlName>
+    </action>
+    <building>false</building>
+    <duration>11501</duration>
+    <fullDisplayName>grails-selenese unit tests #10</fullDisplayName>
+    <id>2009-12-07_17-07-34</id>
+    <keepLog>false</keepLog>
+    <number>10</number>
+    <result>SUCCESS</result>
+    <timestamp>1260205654000</timestamp>
+    <url>http://localhost:8080/hudson/job/grails-selenese%20unit%20tests/10/</url>
+    <builtOn></builtOn>
+    <changeSet>
+        <item>
+            <date>2009-12-07T17:07:08.432928Z</date>
+            <msg>[gus] trying to handle spaces in paths *sigh*</msg>
+            <path>
+                <editType>edit</editType>
+                <file>/skunkworks/grails/plugins/grails-selenese/trunk/scripts/test-selenese</file>
+            </path>
+            <revision>6791</revision>
+            <user>gus</user>
+        </item>
+        <item>
+            <date>2009-12-07T17:07:07.432928Z</date>
+            <msg>[chris] made up msg</msg>
+            <path>
+                <editType>edit</editType>
+                <file>/skunkworks/grails/plugins/grails-selenese/trunk/scripts/test-selenese</file>
+            </path>
+            <revision>6791</revision>
+            <user>gus</user>
+        </item>
+        <kind>svn</kind>
+        <revision>
+            <module>https://svn.energizedwork.com/skunkworks/grails/plugins/grails-selenese/trunk</module>
+            <revision>6791</revision>
+        </revision>
+    </changeSet>
+    <culprit>
+        <absoluteUrl>http://build.energylab.ew/hudson/user/gus</absoluteUrl>
+        <fullName>gus</fullName>
+    </culprit>
+</freeStyleBuild>
