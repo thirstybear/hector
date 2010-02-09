@@ -23,7 +23,7 @@
       <g:each in="${failedProjects}" var="failedProject">
         <li class="failure">
           <g:each in="${failedProject.changeset}" var="change">
-            ${change.owner} &nbsp;
+            <img src="avatars/${change.owner}.jpg" height="200px" onError="this.src='avatars/default.gif'" title="${change.owner}"/>
           </g:each>
         </li>
       </g:each>
