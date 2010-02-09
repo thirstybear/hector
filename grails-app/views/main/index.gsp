@@ -20,7 +20,7 @@
     </ol>
 
     <ol>
-      <g:each in="${failedProjects.changeSet}" var="change">
+      <g:each in="${failedProjects.changeset}" var="change">
         <li class="failure">${change.owner}</li>
       </g:each>
     </ol>
