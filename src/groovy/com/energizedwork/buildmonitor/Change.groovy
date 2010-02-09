@@ -13,4 +13,8 @@ class Change {
 
        return owner ?: null
     }
+
+    String toString() {
+        "Change: $checkinMsg"
+    }
 }
