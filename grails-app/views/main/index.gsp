@@ -21,12 +21,14 @@
 
     <ol>
       <g:each in="${failedProjects}" var="failedProject">
-        <li class="failure">
+        <dl class="failure">
           <g:each in="${failedProject.changeset}" var="change">
-            <img src="avatars/${change.owner}.jpg" height="200px" onError="this.src='avatars/default.gif'" title="${change.owner}"/>
+            <dt><img src="avatars/${change.owner}.jpg" onError="this.src='avatars/default.gif'" title="${change.owner}"/></dt>
+            <dd>${change.owner}</dd>
           </g:each>
-        </li>
+        </dl>
       </g:each>
+
     </ol>
 
     <div id="audioplayer_1">
