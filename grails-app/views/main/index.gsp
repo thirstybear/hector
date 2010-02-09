@@ -21,12 +21,14 @@
 
     <ol>
       <g:each in="${failedProjects}" var="failedProject">
-        <dl class="failure">
+        <div class="failedProject">
           <g:each in="${failedProject.changeset}" var="change">
-            <dt><img src="avatars/${change.owner}.jpg" onError="this.src='avatars/default.gif'" title="${change.owner}"/></dt>
-            <dd>${change.owner}</dd>
+            <div class="change">
+              <img src="avatars/${change.owner}.jpg" onError="this.src='avatars/default.gif'" title="${change.owner}"/>
+              <div class="owner">${change.owner}</div>
+            </div>
           </g:each>
-        </dl>
+        </div>
       </g:each>
 
     </ol>

@@ -1,6 +1,8 @@
 html * {
     margin: 0;
     padding: 0;
+    font-family:arial,sans-serif;
+    color:#222222;
 }
 
 body.failed {
@@ -33,13 +35,31 @@ li.failure {
     padding-top: 50px;
 }
 
-dt img {
-    border:0;
-    height:200px;
+.failedProject {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: auto;
 }
 
-dd {
-    font-family:arial,sans-serif;
-    font-size:50px;
-    font-variant:small-caps;
+.failedProject img {
+    border:medium solid;
+    display: inline;
+    height:200px;
+    margin: 30px 10px 2px 10px;
 }
+
+.failedProject .change {
+    display: inline-block;
+}
+
+.failedProject .owner {
+    font-size:2em;
+    font-variant:small-caps;
+    font-weight: bold;
+}
+
+.clearfix {
+    clear: both;
+}
+
