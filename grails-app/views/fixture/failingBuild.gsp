@@ -25,7 +25,7 @@
     <changeSet>
         <item>
             <date>2009-12-07T17:07:08.432928Z</date>
-            <msg>[gus] trying to handle spaces in paths *sigh*</msg>
+            <msg>[gus|simon] trying to handle spaces in paths *sigh*</msg>
             <path>
                 <editType>edit</editType>
                 <file>/skunkworks/grails/plugins/grails-selenese/trunk/scripts/test-selenese</file>

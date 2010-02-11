@@ -23,14 +23,15 @@
       <g:each in="${failedProjects}" var="failedProject">
         <div class="failedProject">
           <g:each in="${failedProject.changeset}" var="change">
-            <div class="change">
-              <img src="avatars/${change.owner}.jpg" onError="this.src='avatars/default.gif'" title="${change.owner}"/>
-              <div class="owner">${change.owner}</div>
-            </div>
+            <g:each in="${change.owners}" var="owner">
+              <div class="change">
+                <img src="avatars/${owner}.jpg" onError="this.src='avatars/default.gif'" title="${owner}"/>
+                <div class="owner">${owner}</div>
+              </div>
+            </g:each>
           </g:each>
         </div>
       </g:each>
-
     </ol>
 
     <div id="audioplayer_1">

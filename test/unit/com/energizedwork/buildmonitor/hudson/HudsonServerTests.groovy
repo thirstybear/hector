@@ -133,8 +133,8 @@ class HudsonServerTests extends GroovyTestCase {
             List<Change> changeset = project.changeset
             assertEquals 2, changeset.size()
 
-            assertEquals('gus', changeset[0].owner)
-            assertEquals('chris', changeset[1].owner)
+            assertEquals('gus', changeset[0].owners)
+            assertEquals('chris', changeset[1].owners)
 
         }
 
