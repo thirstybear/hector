@@ -50,7 +50,7 @@ class HudsonServer {
 
         def msgs = xml.changeSet.item.msg
         msgs.each {
-            result << new Change(checkinMsg:it)
+            result << new Change(checkinMsg:it.text())
         }
         return result
     }
