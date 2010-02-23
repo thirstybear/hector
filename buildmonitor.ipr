@@ -52,6 +52,8 @@
             <files>
               <file url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/src/groovy/org/grails/tomcat/TomcatServer.groovy" />
               <file url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/tomcat-1.2.0/src/groovy/org/grails/tomcat/TomcatServerFactory.groovy" />
+              <file url="file://$USER_HOME$/.grails/1.2.1/projects/hector/plugins/tomcat-1.2.1/src/groovy/org/grails/tomcat/TomcatServer.groovy" />
+              <file url="file://$USER_HOME$/.grails/1.2.1/projects/hector/plugins/tomcat-1.2.1/src/groovy/org/grails/tomcat/TomcatServerFactory.groovy" />
             </files>
           </module>
         </modules>
