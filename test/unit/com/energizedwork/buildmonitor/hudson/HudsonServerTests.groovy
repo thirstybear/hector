@@ -85,7 +85,7 @@ class HudsonServerTests extends GroovyTestCase {
         List<SyndEntry> feedEntries = []
         projectNames.each {String projectName ->
             feedEntries << mock(SyndEntry) {
-                title.returns "$projectName #123 (${SUCCESS})"
+                title.returns ("$projectName #123 (${SUCCESS})").atLeastOnce()
                 link.returns(linkUrl).atLeastOnce()
             }
         }
@@ -118,8 +118,8 @@ class HudsonServerTests extends GroovyTestCase {
         List<SyndEntry> feedEntries = []
         projectNames.each {String projectName ->
             feedEntries << mock(SyndEntry) {
-                title.returns "$projectName #123 (${SUCCESS})"
-                link.returns(linkUrl).atLeastOnce()
+                title.returns("$projectName #123 (${SUCCESS})").atLeastOnce()
+                link.returns(linkUrl).stub()
             }
         }
 
@@ -144,11 +144,6 @@ class HudsonServerTests extends GroovyTestCase {
     }
 
     void testGetProjectsShouldReturnProjectsWithCheckinUser() {
-        /*
-            Get link property from RSS
-            Get data from link.href
-            Parse data for changeset & add to Project
-         */
 
         String projectName = 'failproject'
         String projectState = FAILURE
@@ -185,7 +180,7 @@ class HudsonServerTests extends GroovyTestCase {
 
     void setUpHudsonFeed(String projectName, String projectState, String linkUrl) {
         SyndEntry mockSyndEntry = mock(SyndEntry) {
-            title.returns "$projectName #123 ($projectState)"
+            title.returns("$projectName #123 ($projectState)").atLeastOnce()
             link.returns(linkUrl).atLeastOnce()
         }
         List<SyndEntry> feedEntries = [mockSyndEntry]

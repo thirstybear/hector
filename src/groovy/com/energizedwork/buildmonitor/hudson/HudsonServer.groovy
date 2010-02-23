@@ -27,32 +27,36 @@ class HudsonServer {
         SyndFeed feed = feedRetriever.update()
         List<Project> projects = []
         feed?.entries.each { SyndEntry entry ->
-            Project newProject = buildProject(entry)
-
+            String projectname = getProjectName(entry)
             Project existingProject = projects.find { Project project ->
-                project.name == newProject.name
+                project.name == projectname
             }
 
-            if (existingProject) {
-                existingProject.changeset.add(newProject.changeset)
-            } else {
-                projects << newProject
+            if (!existingProject) {
+                projects << buildProject(entry)
             }
         }
 
         projects
     }
 
-    private Project buildProject(SyndEntry entry) {
+    private String getProjectName(SyndEntry entry) {
         String feedTitle = entry.title
-
         int hashIndex = feedTitle.indexOf('#')
         String projectName = feedTitle.substring(0, hashIndex).trim()
+    }
 
+    private BuildState getProjectState(SyndEntry entry) {
+        String feedTitle = entry.title
         def stateMatcher = (feedTitle =~ /.*\((\w*)\)$/)
         String stateString = stateMatcher[0][1]
 
         BuildState state = mapHudsonStateStringToBuildState(stateString)
+    }
+
+    private Project buildProject(SyndEntry entry) {
+        String projectName = getProjectName(entry)
+        BuildState state = getProjectState(entry)
         List<Change> changeset = getChangeSet(entry)
 
         return new Project(name:projectName, state:state, changeset:changeset)
