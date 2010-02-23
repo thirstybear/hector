@@ -22,11 +22,25 @@ class HudsonServer {
     XmlDocumentRetriever xmlDocumentRetriever
 
     List<Project> getProjects() {
-        SyndFeed feed = feedRetriever.update()
+        // todo see if there is a more elegant way to do this
 
-        return feed?.entries.collect { SyndEntry entry ->
-            buildProject(entry)
+        SyndFeed feed = feedRetriever.update()
+        List<Project> projects = []
+        feed?.entries.each { SyndEntry entry ->
+            Project newProject = buildProject(entry)
+
+            Project existingProject = projects.find { Project project ->
+                project.name == newProject.name
+            }
+
+            if (existingProject) {
+                existingProject.changeset.add(newProject.changeset)
+            } else {
+                projects << newProject
+            }
         }
+
+        projects
     }
 
     private Project buildProject(SyndEntry entry) {

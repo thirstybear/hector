@@ -110,6 +110,39 @@ class HudsonServerTests extends GroovyTestCase {
         }
     }
 
+    void testGetProjectsCanParseSyndFeedObjectWithMultipleEntriesButDoesNotDuplicate() {
+        List<String> projectNames = ['myproject', 'yourproject', 'myproject']
+
+        String linkUrl = buildXmlLink
+
+        List<SyndEntry> feedEntries = []
+        projectNames.each {String projectName ->
+            feedEntries << mock(SyndEntry) {
+                title.returns "$projectName #123 (${SUCCESS})"
+                link.returns(linkUrl).atLeastOnce()
+            }
+        }
+
+        SyndFeed mockSyndFeed = mock(SyndFeed) {
+            entries.returns feedEntries
+        }
+
+        hudsonServer.feedRetriever = mock(FeedRetriever) {
+            update().returns mockSyndFeed
+        }
+
+        setUpHudsonBuildXml linkUrl
+
+        play {
+            List<Project> actual = hudsonServer.projects
+            assertEquals 2, actual.size()
+            assertEquals projectNames[0], actual[0].name
+            assertEquals projectNames[1], actual[1].name
+            assertEquals passed, actual[0].state
+            assertEquals passed, actual[1].state
+        }
+    }
+
     void testGetProjectsShouldReturnProjectsWithCheckinUser() {
         /*
             Get link property from RSS
