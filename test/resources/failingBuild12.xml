@@ -17,15 +17,15 @@
     <fullDisplayName>grails-selenese unit tests #10</fullDisplayName>
     <id>2009-12-07_17-07-34</id>
     <keepLog>false</keepLog>
-    <number>1</number>
+    <number>12</number>
     <result>FAILURE</result>
     <timestamp>1260205654000</timestamp>
-    <url>http://build.energylab.ew/hudson/job/grails-selenese%20unit%20tests/10/</url>
+    <url>http://localhost:8080/hudson/job/grails-selenese%20unit%20tests/10/</url>
     <builtOn></builtOn>
     <changeSet>
         <item>
             <date>2009-12-07T17:07:08.432928Z</date>
-            <msg>[gus|simon] trying to handle spaces in paths *sigh*</msg>
+            <msg>[gus] trying to handle spaces in paths *sigh*</msg>
             <path>
                 <editType>edit</editType>
                 <file>/skunkworks/grails/plugins/grails-selenese/trunk/scripts/test-selenese</file>
@@ -35,7 +35,7 @@
         </item>
         <item>
             <date>2009-12-07T17:07:07.432928Z</date>
-            <msg>[chris] made up msg</msg>
+            <msg>[chris|simon] made up msg</msg>
             <path>
                 <editType>edit</editType>
                 <file>/skunkworks/grails/plugins/grails-selenese/trunk/scripts/test-selenese</file>

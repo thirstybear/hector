@@ -64,13 +64,40 @@ class HudsonServer {
 
     private List<Change> getChangeSet(SyndEntry entry) {
         List<Change> result = []
-        def xml = xmlDocumentRetriever.getXml("${entry.link}api/xml")
 
-        def msgs = xml.changeSet.item.msg
-        msgs.each {
-            result << new Change(checkinMsg:it.text())
+        def projectBaseLink = getProjectBaseUrl(entry.link)
+        int buildNumber =  getProjectBuildNumber(entry.link)
+
+        while (buildNumber != 0) {
+            def xml = xmlDocumentRetriever.getXml("${projectBaseLink}/${buildNumber}/api/xml")
+
+            if (buildFailed(xml)) {
+                def msgs = xml.changeSet.item.msg
+                msgs.each {
+                    result << new Change(checkinMsg:it.text())
+                }
+                buildNumber--;
+            } else {
+                break
+            }
         }
-        return result
+        result
+    }
+
+
+    boolean buildFailed(def xml) {
+        xml.result.text() == FAILURE
+    }
+
+    String getProjectBaseUrl (def link) {
+        def m = link =~ "(http://.*)/\\d+/"
+
+        m[0][1]
+    }
+
+    int getProjectBuildNumber(def link) {
+        def m = link =~ "/(\\d+)/"
+        return m[0][1].toInteger()
     }
 
     BuildState mapHudsonStateStringToBuildState(String buildStateString) {

@@ -15,7 +15,8 @@ import com.energizedwork.buildmonitor.Change
 class HudsonServerTests extends GroovyTestCase {
 
     HudsonServer hudsonServer
-    String buildXmlLink = 'http://mockhudsonproject/'
+    String projectBaseLink = 'http://mockhudsonproject'
+    String buildXmlLink = "${projectBaseLink}/12/"
 
     void setUp() {
         hudsonServer = new HudsonServer()
@@ -159,10 +160,13 @@ class HudsonServerTests extends GroovyTestCase {
             assertEquals failed, project.state
 
             List<Change> changeset = project.changeset
-            assertEquals 2, changeset.size()
+
+            assertEquals 3, changeset.size()
 
             assertEquals('gus', changeset[0].owners[0])
             assertEquals('chris', changeset[1].owners[0])
+            assertEquals('simon', changeset[1].owners[1])
+            assertEquals('fatfreddyscat', changeset[2].owners[0])
 
         }
 
@@ -174,7 +178,7 @@ class HudsonServerTests extends GroovyTestCase {
         String projectState = FAILURE
 
         setUpHudsonFeed projectName, projectState, buildXmlLink
-        setUpHudsonBuildXml buildXmlLink, 'noChangeSet'
+        setUpHudsonBuildXmlWithEmptyChangeset buildXmlLink
 
         play {
             List<Project> actual = hudsonServer.projects
@@ -210,17 +214,44 @@ class HudsonServerTests extends GroovyTestCase {
         }
     }
 
-    void setUpHudsonBuildXml(String linkUrl, String typeOfData = "failingBuild") {
+    void setUpHudsonBuildXmlWithEmptyChangeset(String linkUrl) {
+        def xml = loadTestDataFile('noChangeSet')
+
+        hudsonServer.xmlDocumentRetriever = mock(XmlDocumentRetriever) {
+            getXml("${linkUrl}api/xml").returns(xml).atLeastOnce()
+        }
+    }
+
+    void setUpHudsonBuildXml(String linkUrl) {
+        def xml12 = loadTestDataFile('failingBuild12')
+        def xml11 = loadTestDataFile('failingBuild11')
+        def xml10 = loadTestDataFile('successfulBuild10')
+
+        String internalProjectBaseLink = projectBaseLink    // WTF Why do we need this?
+
+        hudsonServer.xmlDocumentRetriever = mock(XmlDocumentRetriever) {
+            getXml("${internalProjectBaseLink}/12/api/xml").returns(xml12).stub()
+            getXml("${internalProjectBaseLink}/11/api/xml").returns(xml11).stub()
+            getXml("${internalProjectBaseLink}/10/api/xml").returns(xml10).stub()
+        }
+    }
+
+    private def loadTestDataFile(String typeOfData) {
         File failingBuildXml = new File("test/resources/${typeOfData}.xml")
         assertTrue 'Test resource file not found', failingBuildXml.exists()
 
         def xml = new XmlParser().parse(failingBuildXml)
-
-        hudsonServer.xmlDocumentRetriever = mock(XmlDocumentRetriever) {
-            getXml("${linkUrl}api/xml").returns(xml).atLeastOnce()
-        }        
+        xml
     }
 
 
+    void testGetProjectBaseUrl() {
+        String buildBase = hudsonServer.getProjectBaseUrl('http://build.energylab.ew/hudson/job/Backup-EnergyLab-DNS/277/')
+        assertEquals 'http://build.energylab.ew/hudson/job/Backup-EnergyLab-DNS', buildBase
+    }
 
+    void testGetProjectBuildNumber() {
+        int buildNo = hudsonServer.getProjectBuildNumber('http://build.energylab.ew/hudson/job/Backup-EnergyLab-DNS/277/')
+        assertEquals 277, buildNo
+    }
 }
