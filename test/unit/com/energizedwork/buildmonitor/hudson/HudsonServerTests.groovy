@@ -168,10 +168,26 @@ class HudsonServerTests extends GroovyTestCase {
 
 
     }
-    
-//    public void testGetProjectsShouldCopeWithEmptyChangeSetsInProjectXml() {
-//        fail 'Write this test!!'
-//    }
+
+    public void testGetProjectsShouldCopeWithEmptyChangeSetsInProjectXml() {
+        String projectName = 'failproject'
+        String projectState = FAILURE
+
+        setUpHudsonFeed projectName, projectState, buildXmlLink
+        setUpHudsonBuildXml buildXmlLink, 'noChangeSet'
+
+        play {
+            List<Project> actual = hudsonServer.projects
+            assertEquals 1, actual.size()
+
+            Project project = actual[0]
+            assertEquals projectName, project.name
+            assertEquals failed, project.state
+
+            List<Change> changeset = project.changeset
+            assertEquals 0, changeset.size()
+        }
+    }
 
     void setUpHudsonServer(String projectName, String projectState) {
         setUpHudsonFeed(projectName, projectState, buildXmlLink)
@@ -194,8 +210,8 @@ class HudsonServerTests extends GroovyTestCase {
         }
     }
 
-    void setUpHudsonBuildXml(String linkUrl) {
-        File failingBuildXml = new File('test/resources/failingBuild.xml')
+    void setUpHudsonBuildXml(String linkUrl, String typeOfData = "failingBuild") {
+        File failingBuildXml = new File("test/resources/${typeOfData}.xml")
         assertTrue 'Test resource file not found', failingBuildXml.exists()
 
         def xml = new XmlParser().parse(failingBuildXml)
@@ -204,5 +220,7 @@ class HudsonServerTests extends GroovyTestCase {
             getXml("${linkUrl}api/xml").returns(xml).atLeastOnce()
         }        
     }
+
+
 
 }

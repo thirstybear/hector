@@ -1,0 +1,27 @@
+<freeStyleBuild>
+    <action>
+        <cause>
+            <shortDescription>Started by user anonymous</shortDescription>
+            <userName>anonymous</userName>
+        </cause>
+    </action>
+    <action></action>
+    <action>
+        <failCount>0</failCount>
+        <skipCount>0</skipCount>
+        <totalCount>52</totalCount>
+        <urlName>testReport</urlName>
+    </action>
+    <building>false</building>
+    <duration>11501</duration>
+    <fullDisplayName>grails-selenese unit tests #10</fullDisplayName>
+    <id>2009-12-07_17-07-34</id>
+    <keepLog>false</keepLog>
+    <number>10</number>
+    <result>SUCCESS</result>
+    <timestamp>1260205654000</timestamp>
+    <url>http://localhost:8080/hudson/job/grails-selenese%20unit%20tests/10/</url>
+    <builtOn></builtOn>
+    <changeSet>
+    </changeSet>
+</freeStyleBuild>
