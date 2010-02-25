@@ -25,7 +25,7 @@
           <g:each in="${failedProject.changeset}" var="change">
             <g:each in="${change.owners}" var="owner">
               <div class="change">
-                <img src="avatars/${owner}.jpg" onError="this.src='avatars/default.gif'" title="${owner}"/>
+                <img src="avatars/${owner}.jpg" onError="this.src='avatars/mystery.png'" title="${owner}"/>
                 <div class="owner">${owner}</div>
               </div>
             </g:each>
