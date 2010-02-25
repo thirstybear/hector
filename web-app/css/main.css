@@ -23,6 +23,10 @@ li {
     list-style:none;
 }
 
+ol {
+    margin-left:50px;
+}
+
 #content {
     padding-top: 50px;
 }
@@ -33,13 +37,12 @@ li {
     font-size:100px;
     font-variant:small-caps;
     font-weight:bold;
-    text-align:center;
     vertical-align:80%;
+    width:30%;
+    margin-right:20px;
 }
 
 .failedProject {
-    text-align:right;
-    margin-right:20%
 }
 
 .failedProject img {
@@ -53,6 +56,7 @@ li {
 
 .failedProject .changeset {
     display: inline-block;
+    background-color: #d33024;
 }
 
 .failedProject .change {
