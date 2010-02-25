@@ -15,21 +15,16 @@
   <g:if test="${failedProjects}">
     <ol>
       <g:each in="${failedProjects}" var="failedProject">
-        <li class="failure">${failedProject.name}</li>
-      </g:each>
-    </ol>
-
-    <ol>
-      <g:each in="${failedProjects}" var="failedProject">
         <div class="failedProject">
-          <g:each in="${failedProject.changeset}" var="change">
-            <g:each in="${change.owners}" var="owner">
-              <div class="change">
+          <div class="title">${failedProject.name}</div>
+          <div class="changeset">
+            <g:each in="${failedProject.owners}" var="owner">
+               <div class="change">
                 <img src="avatars/${owner}.jpg" onError="this.src='avatars/mystery.png'" title="${owner}"/>
                 <div class="owner">${owner}</div>
               </div>
             </g:each>
-          </g:each>
+          </div>
         </div>
       </g:each>
     </ol>

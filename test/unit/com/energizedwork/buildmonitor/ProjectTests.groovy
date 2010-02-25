@@ -3,6 +3,23 @@ package com.energizedwork.buildmonitor
 import static com.energizedwork.buildmonitor.BuildState.*
 
 public class ProjectTests extends GroovyTestCase {
+    void testOwnersReturnsSetOfOwners() {
+        List<Change> changeset = []
+        changeset << new Change(checkinMsg:"[chris] wibble")
+        changeset << new Change(checkinMsg:"[chris] wobble")
+        changeset << new Change(checkinMsg:"[gus] tweaking stuffz")
+        changeset << new Change(checkinMsg:"[gus|chris] trashing ur teztz")
+        changeset << new Change(checkinMsg:"[gus|simon] trashing ur teztz more")
+
+        Project project = new Project(changeset:changeset)
+        String[] owners = project.owners
+        
+        assertEquals 3, owners.length
+        assertTrue 'gus' in owners
+        assertTrue 'simon' in owners
+        assertTrue 'chris' in owners
+    }
+
     void testEquals() {
         Project p1 = new Project();
         assertEquals false, p1.equals(null)

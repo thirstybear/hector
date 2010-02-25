@@ -23,23 +23,23 @@ li {
     list-style:none;
 }
 
-li.failure {
+#content {
+    padding-top: 50px;
+}
+
+.title {
+    display:inline-block;
     font-family:arial,sans-serif;
     font-size:100px;
     font-variant:small-caps;
     font-weight:bold;
     text-align:center;
-}
-
-#content {
-    padding-top: 50px;
+    vertical-align:80%;
 }
 
 .failedProject {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: auto;
+    text-align:right;
+    margin-right:20%
 }
 
 .failedProject img {
@@ -47,10 +47,17 @@ li.failure {
     display: inline;
     height:200px;
     margin: 30px 10px 2px 10px;
+
+    
+}
+
+.failedProject .changeset {
+    display: inline-block;
 }
 
 .failedProject .change {
     display: inline-block;
+    text-align:center;
 }
 
 .failedProject .owner {

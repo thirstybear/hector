@@ -7,6 +7,16 @@ class Project {
     BuildState state
     List<Change> changeset
 
+    String[] getOwners() {
+        Set<String> owners = new HashSet<String>();
+        changeset.each { change ->
+                change.owners.each { owner ->
+                owners << owner
+            }
+        }
+        owners
+    }
+
     String toString() {
         return "$name ($state)"
     }
