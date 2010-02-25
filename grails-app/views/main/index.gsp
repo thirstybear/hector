@@ -16,7 +16,7 @@
     <ol>
       <g:each in="${failedProjects}" var="failedProject">
         <div class="failedProject">
-          <div class="title">${failedProject.name}</div>
+          <div class="projecttitle">${failedProject.name}</div>
           <div class="changeset">
             <g:each in="${failedProject.owners}" var="owner">
                <div class="change">
