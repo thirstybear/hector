@@ -38,8 +38,7 @@ li {
 }
 
 .failedProject {
-    text-align:right;
-    margin-right:20%
+    display: block;
 }
 
 .failedProject img {
