@@ -7,7 +7,7 @@ class Change {
 
     String[] getOwners() {
        if (!this.owners) {
-           checkinMsg.find(/\[(.*)\]/) { match, ownerString ->
+           checkinMsg.find(/\[([^]]*)\]/) { match, ownerString ->
                ownerString = ownerString.replaceAll("\\|", " ")
                owners = ownerString.split()
            }
