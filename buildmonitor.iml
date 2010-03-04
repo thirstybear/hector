@@ -8,9 +8,6 @@
       <configuration>
         <webroots>
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.2.0/projects/buildmonitor/plugins/quartz-0.4.1/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.2.1/projects/hector/plugins/quartz-0.4.1/web-app" relative="/" />
         </webroots>
         <sourceRoots />
         <building>
@@ -46,7 +43,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="grails-1.2.1" level="application" />
-    <orderEntry type="library" name="grails-1.2.0" level="application" />
     <orderEntry type="module-library">
       <library name="Grails User Library">
         <CLASSES>
