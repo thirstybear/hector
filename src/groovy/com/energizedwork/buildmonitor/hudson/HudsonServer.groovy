@@ -72,8 +72,7 @@ class HudsonServer {
             def xml = xmlDocumentRetriever.getXml("${projectBaseLink}/${buildNumber}/api/xml")
 
             if (buildFailed(xml)) {
-                def msgs = xml.changeSet.item.msg
-                msgs.each {
+                xml.changeSet.item.msg.findAll {
                     result << new Change(checkinMsg:it.text())
                 }
                 buildNumber--;
