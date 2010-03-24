@@ -13,21 +13,19 @@
 </head>
 <body>
   <g:if test="${failedProjects}">
-    <ol>
-      <g:each in="${failedProjects}" var="failedProject">
-        <div class="failedProject">
-          <div class="projecttitle">${failedProject.name}</div>
-          <div class="changeset">
-            <g:each in="${failedProject.owners}" var="owner">
-               <div class="change">
-                <img src="avatars/${owner}.jpg" onError="this.src='avatars/mystery.png'" title="${owner}"/>
-                <div class="owner">${owner}</div>
-              </div>
-            </g:each>
-          </div>
+    <g:each in="${failedProjects}" var="failedProject">
+      <div class="failedProject">
+        <div class="projecttitle">${failedProject.name}</div>
+        <div class="changeset">
+          <g:each in="${failedProject.owners}" var="owner">
+            <div class="change">
+              <img src="avatars/${owner}.jpg" onError="this.src='avatars/mystery.png'" title="${owner}"/>
+              <div class="owner">${owner}</div>
+            </div>
+          </g:each>
         </div>
-      </g:each>
-    </ol>
+      </div>
+    </g:each>
 
     <div id="audioplayer_1">
       <script type="text/javascript">

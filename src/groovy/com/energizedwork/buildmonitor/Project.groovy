@@ -10,7 +10,7 @@ class Project {
     String[] getOwners() {
         Set<String> owners = new HashSet<String>();
         changeset.each { change ->
-                change.owners.each { owner ->
+            change.owners.each { owner ->
                 owners << owner
             }
         }
