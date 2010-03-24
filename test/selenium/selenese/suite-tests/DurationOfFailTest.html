@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>Red On Fail Test</title>
+<title>Duration Of Fail Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Red On Fail Test</td></tr>
+<tr><td rowspan="1" colspan="3">Duration Of Fail Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>url</td>
-	<td>http://localhost:8080/fixture/hudsonRss?fail=TotalFailure,AOL&amp;pass=MyOwn,HudsonMonitor</td>
+	<td>http://localhost:8080/fixture/hudsonRss?fail=AOL</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -42,19 +42,9 @@
 	<td>failed</td>
 </tr>
 <tr>
-	<td>assertElementPresent</td>
+	<td>assertText</td>
 	<td>css=.duration</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>css=li.failure:first-child</td>
-	<td>AOL</td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>css=li.failure:last-child</td>
-	<td>TotalFailure</td>
+	<td>regex:(((\d+ years)|(\d+ months)|(\d+ days)|(\d+ hours)|(\d+ minutes))(, | and )?)* ago</td>
 </tr>
 
 </tbody></table>

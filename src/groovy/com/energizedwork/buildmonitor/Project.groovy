@@ -6,6 +6,7 @@ class Project {
     String name
     BuildState state
     List<Change> changeset
+    Date published
 
     String[] getOwners() {
         Set<String> owners = new HashSet<String>();
@@ -19,7 +20,7 @@ class Project {
 
     String toString() {
         return "$name ($state)"
-    }
+    }                                                
 
     boolean equals (Object o) {
         boolean equals = false

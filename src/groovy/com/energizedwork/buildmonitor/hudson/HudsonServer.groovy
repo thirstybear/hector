@@ -9,10 +9,12 @@ import com.energizedwork.buildmonitor.BuildState
 import com.energizedwork.feed.FeedRetriever
 import com.energizedwork.feed.XmlDocumentRetriever
 import com.energizedwork.buildmonitor.Change
+import java.text.SimpleDateFormat
 
 
 class HudsonServer {
 
+    static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
     static final String SUCCESS = 'SUCCESS'
     static final String FAILURE = 'FAILURE'
     static final String BUILDING = 'null'
@@ -54,12 +56,17 @@ class HudsonServer {
         BuildState state = mapHudsonStateStringToBuildState(stateString)
     }
 
+    private Date getPublished(SyndEntry entry) {
+        entry.publishedDate
+    }
+
     private Project buildProject(SyndEntry entry) {
         String projectName = getProjectName(entry)
         BuildState state = getProjectState(entry)
+        Date published = getPublished(entry)
         List<Change> changeset = getChangeSet(entry)
 
-        return new Project(name:projectName, state:state, changeset:changeset)
+        return new Project(name:projectName, state:state, published: published, changeset:changeset)
     }
 
     private List<Change> getChangeSet(SyndEntry entry) {

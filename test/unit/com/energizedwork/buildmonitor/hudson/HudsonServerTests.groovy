@@ -10,6 +10,7 @@ import com.sun.syndication.feed.synd.SyndEntry
 import com.energizedwork.feed.FeedRetriever
 import com.energizedwork.feed.XmlDocumentRetriever
 import com.energizedwork.buildmonitor.Change
+import java.text.SimpleDateFormat
 
 @WithGMock
 class HudsonServerTests extends GroovyTestCase {
@@ -25,14 +26,17 @@ class HudsonServerTests extends GroovyTestCase {
     void testGetProjectsCanParseSingleSuccessfulProject() {
         String projectName = 'project1'
         String projectState = SUCCESS
+        String publishedDateString = '2010-01-07T22:00:52Z'
+        Date expectedPublishedDate = new SimpleDateFormat(HudsonServer.DATE_FORMAT).parse(publishedDateString)
 
-        setUpHudsonServer projectName, projectState
+        setUpHudsonServer projectName, projectState, expectedPublishedDate
 
         play {
             List<Project> actual = hudsonServer.projects
             assertEquals 1, actual.size()
             assertEquals projectName, actual[0].name
             assertEquals passed, actual[0].state
+            assertEquals expectedPublishedDate, actual[0].published
         }
     }
 
@@ -88,6 +92,7 @@ class HudsonServerTests extends GroovyTestCase {
             feedEntries << mock(SyndEntry) {
                 title.returns ("$projectName #123 (${SUCCESS})").atLeastOnce()
                 link.returns(linkUrl).atLeastOnce()
+                publishedDate.returns(new Date())
             }
         }
 
@@ -121,6 +126,7 @@ class HudsonServerTests extends GroovyTestCase {
             feedEntries << mock(SyndEntry) {
                 title.returns("$projectName #123 (${SUCCESS})").atLeastOnce()
                 link.returns(linkUrl).stub()
+                publishedDate.returns(new Date()).stub()
             }
         }
 
@@ -193,15 +199,16 @@ class HudsonServerTests extends GroovyTestCase {
         }
     }
 
-    void setUpHudsonServer(String projectName, String projectState) {
-        setUpHudsonFeed(projectName, projectState, buildXmlLink)
+    void setUpHudsonServer(String projectName, String projectState, Date publishedDate = new Date()) {
+        setUpHudsonFeed(projectName, projectState, buildXmlLink, publishedDate)
         setUpHudsonBuildXml(buildXmlLink)
     }
 
-    void setUpHudsonFeed(String projectName, String projectState, String linkUrl) {
+    void setUpHudsonFeed(String projectName, String projectState, String linkUrl, Date pubDate = new Date()) {
         SyndEntry mockSyndEntry = mock(SyndEntry) {
             title.returns("$projectName #123 ($projectState)").atLeastOnce()
             link.returns(linkUrl).atLeastOnce()
+            publishedDate.returns(pubDate).atLeastOnce()
         }
         List<SyndEntry> feedEntries = [mockSyndEntry]
 

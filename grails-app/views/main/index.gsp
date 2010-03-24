@@ -1,3 +1,4 @@
+<%@ page import="com.energizedwork.buildmonitor.hudson.HudsonServer" %>
 <html>
 <head>
   <meta name="layout" content="main"/>  
@@ -17,6 +18,7 @@
       <g:each in="${failedProjects}" var="failedProject">
         <div class="failedProject">
           <div class="projecttitle">${failedProject.name}</div>
+          <div class="duration"><hector:timeSince value="${failedProject.published}"/></div>
           <div class="changeset">
             <g:each in="${failedProject.owners}" var="owner">
                <div class="change">
