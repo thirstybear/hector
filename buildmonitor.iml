@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module relativePaths="true" type="GRAILS_MODULE" version="4">
+<module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="Grails" name="Grails">
-      <configuration />
-    </facet>
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
         </webroots>
         <sourceRoots />
-        <building>
-          <setting name="EXPLODED_URL" value="file://" />
-          <setting name="EXPLODED_ENABLED" value="false" />
-          <setting name="JAR_URL" value="file://" />
-          <setting name="JAR_ENABLED" value="false" />
-          <setting name="EXCLUDE_EXPLODED_DIRECTORY" value="true" />
-        </building>
       </configuration>
     </facet>
   </component>
