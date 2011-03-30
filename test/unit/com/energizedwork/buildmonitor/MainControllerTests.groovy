@@ -58,7 +58,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.viewName
-        assertEquals 'unexpected model', [state: failed, failedProjects: projects], controller.modelAndView.model.linkedHashMap
+        assertEquals 'unexpected model', [state: failed, failedProjects: projects], controller.modelAndView.model
     }
 
     void testIndexPutsBuildMonitorPassStateOnModel() {
@@ -75,7 +75,7 @@ class MainControllerTests extends ControllerUnitTestCase {
         }
 
         assertEquals 'unexpected view', 'index', controller.modelAndView.viewName
-        assertEquals 'unexpected model', [state: passed], controller.modelAndView.model.linkedHashMap
+        assertEquals 'unexpected model', [state: passed], controller.modelAndView.model
     }
 
     void testIndexShouldPopulateLastModifiedHttpHeaderWithLastUpdateTime() {        

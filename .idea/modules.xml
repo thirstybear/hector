@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/buildmonitor.iml" filepath="$PROJECT_DIR$/buildmonitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildmonitor-grailsPlugins.iml" filepath="$PROJECT_DIR$/buildmonitor-grailsPlugins.iml" />
     </modules>
   </component>
 </project>

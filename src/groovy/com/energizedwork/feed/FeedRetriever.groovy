@@ -23,7 +23,7 @@ class FeedRetriever {
             HttpResponse response = httpclient.execute(get)
             if (response.statusLine.statusCode == 200) {
                 HttpEntity entity = response.entity
-                if (entity) {
+                if (entity != null) {
                     result = entity.content.withReader(convertReaderToFeed)
                 }
             }
