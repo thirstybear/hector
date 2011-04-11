@@ -2,27 +2,25 @@ package com.energizedwork.buildmonitor
 
 import static com.energizedwork.web.support.HttpConstants.*
 
-import com.energizedwork.buildmonitor.BuildMonitor
-import com.energizedwork.buildmonitor.Configuration
-import com.energizedwork.buildmonitor.Project
 import grails.test.ControllerUnitTestCase
 import org.gmock.WithGMock
 import static com.energizedwork.buildmonitor.BuildState.failed
 import static com.energizedwork.buildmonitor.BuildState.passed
 import static com.energizedwork.buildmonitor.ConfigurationState.configured
 import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
-import java.text.SimpleDateFormat
 
 @WithGMock
 class MainControllerTests extends ControllerUnitTestCase {
 
+    private static final int MINUTES_AS_MILLIS = 1000 * 60
     final String GMT_EPOCH = 'Thu, 01 Jan 1970 00:00:00 GMT'
 
     TimeZone originalTimeZone
 
     void setUp() {
         originalTimeZone = TimeZone.default
-        TimeZone.default = TimeZone.getTimeZone(TimeZone.GMT_ID)
+        TimeZone.default = TimeZone.getTimeZone("GMT")
+
         super.setUp()
     }
 
@@ -115,8 +113,8 @@ class MainControllerTests extends ControllerUnitTestCase {
     void testIndexShouldReturn304IfNotModifiedSincePrevious() {
         setConfigured()
 
-        Date clientIfModifiedSince = new Date(1000 * 60 * 10)
-        Date serverLastModified = new Date(1000 * 60 * 5)
+        Date clientIfModifiedSince = new Date(MINUTES_AS_MILLIS * 10)
+        Date serverLastModified = new Date(MINUTES_AS_MILLIS * 5)
         controller.buildMonitor = mock(BuildMonitor) {
             hasChanged(clientIfModifiedSince).returns false
             lastUpdate.returns serverLastModified

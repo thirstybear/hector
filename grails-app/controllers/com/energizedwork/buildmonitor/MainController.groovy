@@ -1,23 +1,18 @@
 package com.energizedwork.buildmonitor
 
-import static com.energizedwork.web.support.HttpConstants.*
-
-import static com.energizedwork.buildmonitor.BuildState.failed
-import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
-
-import com.energizedwork.buildmonitor.BuildMonitor
-import com.energizedwork.buildmonitor.BuildState
-import com.energizedwork.buildmonitor.Configuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import org.apache.commons.lang.time.DateUtils
+import static com.energizedwork.buildmonitor.BuildState.failed
+import static com.energizedwork.buildmonitor.ConfigurationState.unconfigured
+import static com.energizedwork.web.support.HttpConstants.*
 
 class MainController {
 
     BuildMonitor buildMonitor
     Configuration configuration
-    
-    DateFormat dateFormatterImpl    
+
+    DateFormat dateFormatterImpl
 
     def index = {
         if (configuration.state == unconfigured) {
@@ -56,9 +51,9 @@ class MainController {
 
         return result
     }
-        
+
     private void setLastModified(Date lastModified) {
-        if(lastModified) {
+        if (lastModified) {
             Date lastUpdate = DateUtils.round(lastModified, Calendar.SECOND)
             String dateString = dateFormatter.format(lastUpdate)
             response.addHeader LAST_MODIFIED, dateString
@@ -66,7 +61,7 @@ class MainController {
     }
 
     private DateFormat getDateFormatter() {
-        if(!dateFormatterImpl) {
+        if (!dateFormatterImpl) {
             dateFormatterImpl = new SimpleDateFormat(ISO_DATE_FORMAT)
         }
         return dateFormatterImpl
